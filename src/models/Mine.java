@@ -18,4 +18,32 @@ public class Mine {
 		this.mineType = mineType;
 		this.budgetMine = budgetMine;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getMeter() {
+		return meter;
+	}
+
+	public OreType getOreType() {
+		return oreType;
+	}
+
+	public int getKilogramPrice() {
+		return kilogramPrice;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public MineType getMineType() {
+		return mineType;
+	}
+
+	public int getBudgetMine() {
+		return budgetMine;
+	}
 }

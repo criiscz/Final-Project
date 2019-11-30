@@ -1,5 +1,109 @@
 package views;
 
-public class IOManager {
+import java.util.Scanner;
 
+import models.MineType;
+import models.OreType;
+
+public class IOManager {
+	private Scanner in;
+	public static final String SHOW_MENU = "Seleccione una opcion:\n"
+			+ "1. Ver tabla\n"
+			+ "2. Agregar mina\n"
+			+ "3. Remover mine\n"
+			+ "4. Salir\n";
+	public static final String TOTAL_METERS = "content";
+	public static final String WELCOME = "content";
+	public static final String MINE = "content";
+	
+	public IOManager() {
+		in = new Scanner(System.in);
+	}
+	
+	public String readNameMine() {
+		System.out.println("Digite el nombre de la mina: ");
+		return in.nextLine();
+	}
+	
+	public int readMeterMine() {
+		System.out.println("Digite el numero de metros cuadrados de la mina: ");
+		return Integer.parseInt(in.nextLine());
+	}
+	
+	public OreType readOreType() {
+		int option = Integer.parseInt(in.nextLine());
+		try {
+			return selectOreType(option);
+		} catch (Exception e) {
+			System.out.println("Error");
+			return readOreType();
+		}
+		
+	}
+	
+	public OreType selectOreType(int option) throws Exception {
+		switch (option) {
+		case 1:
+			return OreType.COBRE;
+		case 2:
+			return OreType.NIQUEL;
+		case 3:
+			return OreType.PETROL;
+		case 4:
+			return OreType.GOLD;
+		case 5:
+			return OreType.EMERALD;
+		case 6:
+			return OreType.IRON;
+		case 7:
+			return OreType.PLATE;
+		case 8:
+			return OreType.PLOMO;
+		case 9:
+			return OreType.PLATINO;
+		case 10:
+			return OreType.TITANIO;
+		case 11:
+			return OreType.MANGANESO;
+		case 12:
+			return OreType.AGREGADOS;
+		default:
+			throw new Exception();
+		}
+	}
+		
+		public int readKilogram() {
+			System.out.println("Digite el precio por kilogramo de este producto:");
+			return Integer.parseInt(in.nextLine());
+		}
+		
+		public int readId() {
+			System.out.println("Digite el numero de indentificacion de la mina: ");
+			return Integer.parseInt(in.nextLine());
+		}
+		
+		public MineType readMineType() {
+			System.out.println("Ingrese un tipo de mina: ");
+			int option = Integer.parseInt(in.nextLine());
+			try {
+				return selectMineType(option);
+			} catch (Exception e) {
+				System.out.println("Error");
+				return readMineType();
+			}
+		}
+		
+		public MineType selectMineType(int option) throws Exception {
+			switch (option) {
+			case 1:
+				return MineType.OPEN_PIT_MINE;
+			case 2:
+				return MineType.SUBTERRANEAN_MINE;
+			default:
+				throw new Exception();
+			}
+		}
+	
+	
+	
 }

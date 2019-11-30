@@ -12,12 +12,13 @@ public class Department {
 		this.budgetDepartment = budgetDepartment;
 	}
 	
-	public Mine createMine() {
-		return null;
+	public Mine createMine(String name, int meter, OreType oreType, int kilogramPrice, int id, MineType mineType, int budgetMine) {
+		return new Mine(name,meter,oreType, kilogramPrice,id,mineType,budgetMine);
 	}
 	
-	public void addMine() {
-		
+	public void addMine(Mine mine) {
+		budgetDepartment -= mine.getBudgetMine();
+		listMine.add(mine);
 	}
 	
 }
