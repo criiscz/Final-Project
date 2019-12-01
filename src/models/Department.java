@@ -1,26 +1,29 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.MineNotFoundException;
 
 public class Department {
-	private String name;
+	private DepartmentName name;
 	private List<Mine> listMine;
 	private int budgetDepartment;
 	
-	public Department() {
-		
-	}
-	public Department(String name, int budgetDepartment) {
+	public Department(DepartmentName name, int budgetDepartment) {
 		this.name = name;
 		this.budgetDepartment = budgetDepartment;
+		listMine = new ArrayList<>();
 	}
 	
-	public Mine createMine(String name, int meter, OreType oreType, int kilogramPrice, int id, MineType mineType, int budgetMine) {
-		return new Mine(name,meter,oreType, kilogramPrice,id,mineType,budgetMine);
+	public String getName() {
+		return name.getName();
 	}
 	
+	public int getBudgetDepartment() {
+		return budgetDepartment;
+	}
+		
 	public void addMine(Mine mine) {
 		budgetDepartment -= mine.getBudgetMine();
 		listMine.add(mine);

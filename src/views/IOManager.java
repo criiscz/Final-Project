@@ -2,6 +2,8 @@ package views;
 
 import java.util.Scanner;
 
+import exceptions.DepartmentNotFoundException;
+import models.DepartmentName;
 import models.MineType;
 import models.OreType;
 
@@ -15,32 +17,38 @@ public class IOManager {
 	public static final String TOTAL_METERS = "content";
 	public static final String WELCOME = "content";
 	public static final String MINE = "content";
-	
+
 	public IOManager() {
 		in = new Scanner(System.in);
+	}
+
+	public int selectOptionMenu() {
+		System.out.println(SHOW_MENU);
+		return Integer.parseInt(in.nextLine());
 	}
 	
 	public String readNameMine() {
 		System.out.println("Digite el nombre de la mina: ");
 		return in.nextLine();
 	}
-	
+
 	public int readMeterMine() {
 		System.out.println("Digite el numero de metros cuadrados de la mina: ");
 		return Integer.parseInt(in.nextLine());
 	}
-	
+
 	public OreType readOreType() {
-		int option = Integer.parseInt(in.nextLine());
+		System.out.println("Elija el tipo de mineral: ");
 		try {
+			int option = Integer.parseInt(in.nextLine());
 			return selectOreType(option);
 		} catch (Exception e) {
 			System.out.println("Error");
 			return readOreType();
 		}
-		
+
 	}
-	
+
 	public OreType selectOreType(int option) throws Exception {
 		switch (option) {
 		case 1:
@@ -71,39 +79,71 @@ public class IOManager {
 			throw new Exception();
 		}
 	}
-		
-		public int readKilogram() {
-			System.out.println("Digite el precio por kilogramo de este producto:");
-			return Integer.parseInt(in.nextLine());
+
+	public int readKilogram() {
+		System.out.println("Digite el precio por kilogramo de este producto:");
+		return Integer.parseInt(in.nextLine());
+	}
+
+	public int readId() {
+		System.out.println("Digite el numero de indentificacion de la mina: ");
+		return Integer.parseInt(in.nextLine());
+	}
+
+	public MineType readMineType() {
+		System.out.println("Ingrese un tipo de mina: ");
+		int option = Integer.parseInt(in.nextLine());
+		try {
+			return selectMineType(option);
+		} catch (Exception e) {
+			System.out.println("Error");
+			return readMineType();
 		}
-		
-		public int readId() {
-			System.out.println("Digite el numero de indentificacion de la mina: ");
-			return Integer.parseInt(in.nextLine());
+	}
+
+	public MineType selectMineType(int option) throws Exception {
+		switch (option) {
+		case 1:
+			return MineType.OPEN_PIT_MINE;
+		case 2:
+			return MineType.SUBTERRANEAN_MINE;
+		default:
+			throw new Exception();
 		}
-		
-		public MineType readMineType() {
-			System.out.println("Ingrese un tipo de mina: ");
-			int option = Integer.parseInt(in.nextLine());
-			try {
-				return selectMineType(option);
-			} catch (Exception e) {
-				System.out.println("Error");
-				return readMineType();
-			}
-		}
-		
-		public MineType selectMineType(int option) throws Exception {
-			switch (option) {
-			case 1:
-				return MineType.OPEN_PIT_MINE;
-			case 2:
-				return MineType.SUBTERRANEAN_MINE;
-			default:
-				throw new Exception();
-			}
-		}
+	}
 	
+	public int readBudgetMine() {
+		System.out.println("Digite el presupuesto destinado a la mina.");
+		return Integer.parseInt(in.nextLine());
+	}
 	
+	public DepartmentName readDepartment() {
+		System.out.println("Seleccion el departamento: ");
+		try {
+			return selectDepartment(Integer.parseInt(in.nextLine()));
+		} catch (Exception e) {
+			showError(e.toString());
+			return readDepartment();
+		}
+	}
 	
+	public DepartmentName selectDepartment(int option) throws Exception {
+		switch (option) {
+		case 1:
+			return DepartmentName.BOYACA;
+		default:
+			throw new DepartmentNotFoundException();
+		}
+	}
+
+	public void showConfirmationAdd() {
+		System.out.println("La mina se agrego exitosamente");
+	}
+	
+	public void showError(String error) {
+		System.err.println(error);
+	}
+
+
+
 }
