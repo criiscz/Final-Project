@@ -3,6 +3,7 @@ package views;
 import java.util.Scanner;
 
 import exceptions.DepartmentNotFoundException;
+import models.Department;
 import models.DepartmentName;
 import models.MineType;
 import models.OreType;
@@ -144,6 +145,12 @@ public class IOManager {
 		System.err.println(error);
 	}
 
-
+	public void showTable(Department[] listDepartment) {
+		for (Department department : listDepartment) {
+			for (int i = 0; i < department.toObjectMatrix().length; i++) {
+				System.out.println(String.format("%1$-10s %2$-10s %3$-10s %4$-10s %5$-10s %6$-10s", department.toObjectMatrix()[i]));
+			}
+		}
+	}
 
 }

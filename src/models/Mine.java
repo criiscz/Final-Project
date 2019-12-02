@@ -46,4 +46,8 @@ public class Mine {
 	public int getBudgetMine() {
 		return budgetMine;
 	}
+	
+	public Object[] toObjectVector() {
+		return new Object[] {id,name,meter,oreType,kilogramPrice,mineType.getMineType(),budgetMine};
+	}
 }

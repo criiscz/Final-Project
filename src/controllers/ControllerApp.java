@@ -1,6 +1,7 @@
 package controllers;
 import views.IOManager;
 import exceptions.DepartmentNotFoundException;
+import exceptions.MineNotFoundException;
 import models.*;
 public class ControllerApp {
 	private IOManager view;
@@ -20,12 +21,13 @@ public class ControllerApp {
 			option = view.selectOptionMenu();
 			switch (option) {
 			case 1:
-				
+				showTable();
 				break;
 			case 2: 
 				addMine();
 				break;
 			case 3: 
+				removeMine();
 				break;
 			default:
 				view.showError(null);
@@ -34,12 +36,23 @@ public class ControllerApp {
 		} while (option != 4 );
 	}
 	
-
+	public void showTable() {
+		view.showTable(model.getListDepartment());
+	}
+	
 	public void addMine() {
 		try {
 			model.createMine(view.readDepartment(), view.readNameMine(), view.readMeterMine(), view.readOreType(), view.readKilogram(), view.readId(), view.readMineType(), view.readBudgetMine());
 		} catch (DepartmentNotFoundException e) {
 			view.showError(e.toString());
+		}
+	}
+	
+	public void removeMine() {
+		try {
+			model.sendRemoveMine(view.readDepartment(), view.readId());
+		} catch (MineNotFoundException e) {
+			view.showError(e.getMessage());
 		}
 	}
 }
