@@ -36,5 +36,31 @@ public class Colombia {
 	public Department[] getListDepartment() {
 		return listDepartment;
 	}
-	
+	public void modifyDataMine(int option, DepartmentName department, int id, int newData) {
+		for (Department department2 : listDepartment) {
+			if(department2.getName().equals(department.getName())) {
+
+				switch (option) {
+				case 1:
+					try {
+						department2.searchMine(id).setKilogramPrice(newData);
+					} catch (MineNotFoundException e) {
+						e.printStackTrace();
+					}
+					break;
+				case 2: 
+					break;
+				case 3:
+					break;
+				default:
+					break;
+				}
+			}
+		}
+	}
 }
+
+
+
+
+

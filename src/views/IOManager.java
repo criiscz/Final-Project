@@ -18,6 +18,15 @@ public class IOManager {
 	public static final String TOTAL_METERS = "content";
 	public static final String WELCOME = "content";
 	public static final String MINE = "content";
+	public static final String MINE_NAME = "Nombre Mina";
+	public static final String SEPARATOR = "-------------------------------------------------------------------------------------------------";
+	public static final String DEPARTMENT = "Departamento";
+	public static final String BUDGET_DEPARTMENT = "presupuesto";
+	public static final String ID_MINE = "mina";
+	public static final String METERS_MINE = "m2 mina";
+	public static final String ORE = "Mineral";
+	public static final Object[] TITLES_TABLE = {DEPARTMENT, BUDGET_DEPARTMENT,ID_MINE,MINE_NAME,METERS_MINE, ORE};
+	public static final String FORMAT = "%1$-15s %2$-15s %3$-10s %4$-15s %5$-15s %6$-10s ";
 
 	public IOManager() {
 		in = new Scanner(System.in);
@@ -144,13 +153,42 @@ public class IOManager {
 	public void showError(String error) {
 		System.err.println(error);
 	}
+	public void generateTitles() {
+		System.out.println(SEPARATOR);
+		System.out.println(String.format(FORMAT, TITLES_TABLE));
+		System.out.println(SEPARATOR);
+		System.out.println(SEPARATOR);
+	}
+ 
 
 	public void showTable(Department[] listDepartment) {
+		generateTitles();
 		for (Department department : listDepartment) {
 			for (int i = 0; i < department.toObjectMatrix().length; i++) {
-				System.out.println(String.format("%1$-10s %2$-10s %3$-10s %4$-10s %5$-10s %6$-10s", department.toObjectMatrix()[i]));
+				System.out.println(String.format("%1$-15s %2$-15s %3$-10s %4$-15s %5$-15s %6$-10s ", department.toObjectMatrix()[i]));
+				System.out.println(SEPARATOR);
 			}
 		}
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

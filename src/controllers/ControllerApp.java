@@ -1,7 +1,6 @@
 package controllers;
 import views.IOManager;
-import exceptions.DepartmentNotFoundException;
-import exceptions.MineNotFoundException;
+import exceptions.*;
 import models.*;
 public class ControllerApp {
 	private IOManager view;
