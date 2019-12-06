@@ -15,24 +15,33 @@ public class ControllerApp {
 	
 	public void init() {
 		//		addMine();
-		int option;
-		do {
-			option = view.selectOptionMenu();
-			switch (option) {
-			case 1:
-				showTable();
-				break;
-			case 2: 
-				addMine();
-				break;
-			case 3: 
-				removeMine();
-				break;
-			default:
-				view.showError(null);
-				break;
-			}
-		} while (option != 4 );
+		try {
+			int option;
+			do {
+				option = view.selectOptionMenu();
+				switch (option) {
+				case 1:
+					showTable();
+					break;
+				case 2: 
+					addMine();
+					break;
+				case 3: 
+					removeMine();
+					break;
+				case 4:
+					break;
+				default:
+					throw new OptionInvalidException();
+				}
+			} while (option != 4 );
+		} catch(OptionInvalidException e) {
+			view.showError(e.getMessage());
+			init();
+		} catch(NumberFormatException e2) {
+			view.showError("Opcion Invalida");
+			init();
+		}
 	}
 	
 	public void showTable() {

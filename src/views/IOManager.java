@@ -2,7 +2,7 @@ package views;
 
 import java.util.Scanner;
 
-import exceptions.DepartmentNotFoundException;
+import exceptions.OptionInvalidException;
 import models.Department;
 import models.DepartmentName;
 import models.MineType;
@@ -14,25 +14,28 @@ public class IOManager {
 			+ "1. Ver tabla\n"
 			+ "2. Agregar mina\n"
 			+ "3. Remover mine\n"
-			+ "4. Salir\n";
+			+ "4. Salir";
 	public static final String TOTAL_METERS = "content";
 	public static final String WELCOME = "content";
 	public static final String MINE = "content";
 	public static final String MINE_NAME = "Nombre Mina";
-	public static final String SEPARATOR = "-------------------------------------------------------------------------------------------------";
+	public static final String SEPARATOR = "--------------------------------------------------------------------------------------------------------------------------------------------------";
 	public static final String DEPARTMENT = "Departamento";
-	public static final String BUDGET_DEPARTMENT = "presupuesto";
-	public static final String ID_MINE = "mina";
-	public static final String METERS_MINE = "m2 mina";
+	public static final String BUDGET_DEPARTMENT = "Presupuesto";
+	public static final String ID_MINE = "Id Mina";
+	public static final String METERS_MINE = "m2";
 	public static final String ORE = "Mineral";
-	public static final Object[] TITLES_TABLE = {DEPARTMENT, BUDGET_DEPARTMENT,ID_MINE,MINE_NAME,METERS_MINE, ORE};
-	public static final String FORMAT = "%1$-15s %2$-15s %3$-10s %4$-15s %5$-15s %6$-10s ";
+	public static final String KILOGRAM_PRICE = "$ Kilo";
+	public static final String MINE_TYPE = "Tipo de Mina";
+	public static final String BUDGET_MINE = "Presupuesto Mina";
+	public static final Object[] TITLES_TABLE = {DEPARTMENT, BUDGET_DEPARTMENT,ID_MINE,MINE_NAME,METERS_MINE, ORE, KILOGRAM_PRICE, MINE_TYPE, BUDGET_MINE};
+	public static final String FORMAT = "%1$-22s %2$-15s | %3$-10s %4$-15s %5$-15s %6$-15s %7$-10s %8$-20s %9$-11s";
 
 	public IOManager() {
 		in = new Scanner(System.in);
 	}
 
-	public int selectOptionMenu() {
+	public int selectOptionMenu() throws NumberFormatException{
 		System.out.println(SHOW_MENU);
 		return Integer.parseInt(in.nextLine());
 	}
@@ -49,17 +52,20 @@ public class IOManager {
 
 	public OreType readOreType() {
 		System.out.println("Elija el tipo de mineral: ");
+		for (int i = 0; i < OreType.values().length; i++) {
+			System.out.println(1+i + " " + OreType.values()[i].getOreType());
+		}
 		try {
 			int option = Integer.parseInt(in.nextLine());
 			return selectOreType(option);
-		} catch (Exception e) {
+		} catch (OptionInvalidException e) {
 			System.out.println("Error");
 			return readOreType();
 		}
 
 	}
 
-	public OreType selectOreType(int option) throws Exception {
+	public OreType selectOreType(int option) throws OptionInvalidException {
 		switch (option) {
 		case 1:
 			return OreType.COBRE;
@@ -86,7 +92,7 @@ public class IOManager {
 		case 12:
 			return OreType.AGREGADOS;
 		default:
-			throw new Exception();
+			throw new OptionInvalidException();
 		}
 	}
 
@@ -102,23 +108,27 @@ public class IOManager {
 
 	public MineType readMineType() {
 		System.out.println("Ingrese un tipo de mina: ");
+		for (int i = 0; i < MineType.values().length; i++) {
+			System.out.println(i+1 + " " + MineType.values()[i].getMineType());
+		}
+		
 		int option = Integer.parseInt(in.nextLine());
 		try {
 			return selectMineType(option);
-		} catch (Exception e) {
+		} catch (OptionInvalidException e) {
 			System.out.println("Error");
 			return readMineType();
 		}
 	}
 
-	public MineType selectMineType(int option) throws Exception {
+	public MineType selectMineType(int option) throws OptionInvalidException {
 		switch (option) {
 		case 1:
 			return MineType.OPEN_PIT_MINE;
 		case 2:
 			return MineType.SUBTERRANEAN_MINE;
 		default:
-			throw new Exception();
+			throw new OptionInvalidException();
 		}
 	}
 	
@@ -129,20 +139,41 @@ public class IOManager {
 	
 	public DepartmentName readDepartment() {
 		System.out.println("Seleccion el departamento: ");
+		for (int i = 0; i < DepartmentName.values().length; i++) {
+			System.out.println(i+1 + "  " + DepartmentName.values()[i].getName());
+		}
 		try {
 			return selectDepartment(Integer.parseInt(in.nextLine()));
-		} catch (Exception e) {
+		} catch (OptionInvalidException e) {
 			showError(e.toString());
 			return readDepartment();
 		}
 	}
 	
-	public DepartmentName selectDepartment(int option) throws Exception {
+	public DepartmentName selectDepartment(int option) throws OptionInvalidException {
 		switch (option) {
 		case 1:
 			return DepartmentName.BOYACA;
+		case 2:
+			return DepartmentName.CUNDINAMARCA;
+		case 3:
+			return DepartmentName.ANTIOQUIA;
+		case 4:
+			return DepartmentName.NORTE_DE_SANTANDER;
+		case 5:
+			return DepartmentName.SANTANDER;
+		case 6:
+			return DepartmentName.TOLIMA;
+		case 7:
+			return DepartmentName.CAUCA;
+		case 8:
+			return DepartmentName.LA_GUAJIRA;
+		case 9:
+			return DepartmentName.CESAR;
+		case 10:
+			return DepartmentName.CORDOBA;
 		default:
-			throw new DepartmentNotFoundException();
+			throw new OptionInvalidException();
 		}
 	}
 
@@ -165,7 +196,7 @@ public class IOManager {
 		generateTitles();
 		for (Department department : listDepartment) {
 			for (int i = 0; i < department.toObjectMatrix().length; i++) {
-				System.out.println(String.format("%1$-15s %2$-15s %3$-10s %4$-15s %5$-15s %6$-15s %7$-10s %8$-20s %9$-11s", department.toObjectMatrix()[i]));
+				System.out.println(String.format("%1$-22s %2$-15s | %3$-10s %4$-15s %5$-15s %6$-15s %7$-10s %8$-20s %9$-11s", department.toObjectMatrix()[i]));
 				System.out.println(SEPARATOR);
 			}
 		}
