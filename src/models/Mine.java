@@ -48,15 +48,7 @@ public class Mine {
 	}
 	
 	public Object[] toObjectVector() {
-		return new Object[] {id,name,meter,oreType,kilogramPrice,mineType.getMineType(),budgetMine};
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setMeter(int meter) {
-		this.meter = meter;
+		return new Object[] {id,name,meter,oreType.getOreType(),kilogramPrice,mineType.getMineType(),budgetMine};
 	}
 
 	public void setOreType(OreType oreType) {
@@ -67,15 +59,8 @@ public class Mine {
 		this.kilogramPrice = kilogramPrice;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public void setMineType(MineType mineType) {
 		this.mineType = mineType;
 	}
 
-	public void setBudgetMine(int budgetMine) {
-		this.budgetMine = budgetMine;
-	}
 }

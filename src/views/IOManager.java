@@ -165,7 +165,7 @@ public class IOManager {
 		generateTitles();
 		for (Department department : listDepartment) {
 			for (int i = 0; i < department.toObjectMatrix().length; i++) {
-				System.out.println(String.format("%1$-15s %2$-15s %3$-10s %4$-15s %5$-15s %6$-10s ", department.toObjectMatrix()[i]));
+				System.out.println(String.format("%1$-15s %2$-15s %3$-10s %4$-15s %5$-15s %6$-15s %7$-10s %8$-20s %9$-11s", department.toObjectMatrix()[i]));
 				System.out.println(SEPARATOR);
 			}
 		}
