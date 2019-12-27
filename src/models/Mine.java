@@ -8,6 +8,7 @@ public class Mine {
 	private int id;
 	private MineType mineType;
 	private int budgetMine;
+	private Transaction transaction;
 	
 	public Mine(String name, int meter, OreType oreType, int kilogramPrice, int id, MineType mineType, int budgetMine) {
 		this.name = name;
@@ -61,6 +62,16 @@ public class Mine {
 
 	public void setMineType(MineType mineType) {
 		this.mineType = mineType;
+	}
+	
+	public void SellOre(int kilos) {
+		transaction = new Sell();
+		budgetMine = transaction.transaction(budgetMine, kilos*kilogramPrice);
+	}
+	
+	public void buyInsumes(int value) {
+		transaction = new Buy();
+		budgetMine = transaction.transaction(budgetMine, value);
 	}
 
 }
