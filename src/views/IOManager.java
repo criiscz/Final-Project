@@ -14,7 +14,12 @@ public class IOManager {
 			+ "1. Ver tabla\n"
 			+ "2. Agregar mina\n"
 			+ "3. Remover mine\n"
-			+ "4. Salir";
+			+ "4. Editar Mina\n"
+			+ "5. Salir\n";
+	public static final String SHOW_MENU_EDIT = "Seleccione una opcion:\n"
+			+ "1. Editar Valor por kilogramo de la mina\n"
+			+ "2. Editar Tipo de mineral de mina\n"
+			+ "3. Atras.\n";
 	public static final String TOTAL_METERS = "content";
 	public static final String WELCOME = "content";
 	public static final String MINE = "content";
@@ -37,6 +42,11 @@ public class IOManager {
 
 	public int selectOptionMenu() throws NumberFormatException{
 		System.out.println(SHOW_MENU);
+		return Integer.parseInt(in.nextLine());
+	}
+	
+	public int selectOptionMenuEdit() throws NumberFormatException{
+		System.out.println(SHOW_MENU_EDIT);
 		return Integer.parseInt(in.nextLine());
 	}
 	
@@ -201,25 +211,11 @@ public class IOManager {
 			}
 		}
 	}
+	
+	public void showSucesfull() {
+		System.out.println("Operacion Ejecutada Exitosamente");
+	}
+	
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
