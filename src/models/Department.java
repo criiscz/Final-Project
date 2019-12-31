@@ -66,6 +66,20 @@ public class Department {
 		budgetDepartment += listMine.get(positionFound).getBudgetMine();
 		listMine.remove(positionFound);
 	}
+	
+	// ----------------------------------------------------------------------------------//
+	public void editOreType(OreType newType, int id) throws MineNotFoundException {
+		searchMine(id).setOreType(newType);
+	}
+	
+	public void editMineType(MineType mineType, int id) throws MineNotFoundException {
+		searchMine(id).setMineType(mineType);
+	}
+	
+	public void editKilogramPrice(int price, int id) throws MineNotFoundException {
+		searchMine(id).setKilogramPrice(price);
+	}
+	// ----------------------------------------------------------------------------------//
 
 	public Object[] toObjectVector() {
 		return new Object[] { name.getName(), budgetDepartment };

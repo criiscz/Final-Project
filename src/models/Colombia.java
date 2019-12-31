@@ -51,12 +51,16 @@ public class Colombia {
 		return listDepartment;
 	}
 	
-	public void modifyKilogramPriceMine(DepartmentName department, int id, int newKilogramPrice) throws MineNotFoundException, DepartmentNotFoundException {
-		for (Department department2 : listDepartment) {
-			if(department2.getName().equals(department.getName()))
-				department2.searchMine(id).setKilogramPrice(newKilogramPrice);
-		}
-		throw new DepartmentNotFoundException();
+	public void editKilogramPriceMine(DepartmentName department, int id, int newKilogramPrice) throws MineNotFoundException, DepartmentNotFoundException {
+		listDepartment[searchDepartment(department)].editKilogramPrice(newKilogramPrice, id);
+	}
+	
+	public void editOreType(DepartmentName department, int idMine, OreType oreType) throws MineNotFoundException, DepartmentNotFoundException {
+		listDepartment[searchDepartment(department)].editOreType(oreType, idMine);
+	}
+	
+	public void editMineType(DepartmentName department, int idMine, MineType type) throws MineNotFoundException, DepartmentNotFoundException {
+		listDepartment[searchDepartment(department)].editMineType(type, idMine);
 	}
 	public void graphicTest() {
 		DefaultCategoryDataset data = new DefaultCategoryDataset();

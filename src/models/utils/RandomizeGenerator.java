@@ -30,7 +30,7 @@ public class RandomizeGenerator {
 	}
 	
 	public static MineType generateRandomMineType() {
-		return mineTypes[r.nextInt(mineTypes.length -1)];
+		return mineTypes[r.nextInt(mineTypes.length)];
 	}
 	
 	public static OreType generateRandomOreType() {

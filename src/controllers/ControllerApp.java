@@ -31,13 +31,15 @@ public class ControllerApp {
 					break;
 				case 4: 
 					model.graphicTest();
-					break;
 				case 5:
+					editMine();
+					break;
+				case 6:
 					break;
 				default:
 					throw new OptionInvalidException();
 				}
-			} while (option != 5 );
+			} while (option != 6 );
 		} catch(OptionInvalidException e) {
 			view.showError(e.getMessage());
 			init();
@@ -63,6 +65,46 @@ public class ControllerApp {
 		try {
 			model.sendRemoveMine(view.readDepartment(), view.readId());
 		} catch (MineNotFoundException e) {
+			view.showError(e.getMessage());
+		}
+	}
+	
+	public void editMine() throws OptionInvalidException {
+		int option = view.selectOptionMenuEdit();
+		switch (option) {
+		case 1:
+			editKilogramPrice();
+			break;
+		case 2:
+			editOreType();
+			break;
+		case 3:
+			break;
+		default:
+			throw new OptionInvalidException();
+		}
+	}
+	
+	public void editKilogramPrice() {
+		try {
+			model.editKilogramPriceMine(view.readDepartment(), view.readId(), view.readKilogram());
+			view.showSucesfull();
+		} catch (MineNotFoundException | DepartmentNotFoundException e) {
+			view.showError(e.getMessage());
+		}
+		
+	}
+	
+	public void editOreType() {
+		try {
+			DepartmentName department = view.readDepartment();
+			int id = view.readId();
+			MineType mineType = view.readMineType();
+			OreType oreType = view.readOreType();
+			model.editOreType(department,id,oreType);
+			model.editMineType(department, id, mineType);
+			view.showSucesfull();
+		} catch (MineNotFoundException | DepartmentNotFoundException e) {
 			view.showError(e.getMessage());
 		}
 	}
