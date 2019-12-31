@@ -14,7 +14,8 @@ public class IOManager {
 			+ "1. Ver tabla\n"
 			+ "2. Agregar mina\n"
 			+ "3. Remover mine\n"
-			+ "4. Salir";
+			+ "4. Reporte cantidad de minas por departammento\n"
+			+ "5. Salir";
 	public static final String TOTAL_METERS = "content";
 	public static final String WELCOME = "content";
 	public static final String MINE = "content";

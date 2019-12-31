@@ -29,12 +29,15 @@ public class ControllerApp {
 				case 3: 
 					removeMine();
 					break;
-				case 4:
+				case 4: 
+					model.graphicTest();
+					break;
+				case 5:
 					break;
 				default:
 					throw new OptionInvalidException();
 				}
-			} while (option != 4 );
+			} while (option != 5 );
 		} catch(OptionInvalidException e) {
 			view.showError(e.getMessage());
 			init();

@@ -1,5 +1,10 @@
 package models;
 
+import javax.swing.*;
+
+import org.jfree.chart.*;
+import org.jfree.data.category.*;
+import org.jfree.chart.plot.*;
 import exceptions.DepartmentNotFoundException;
 import exceptions.MineNotFoundException;
 
@@ -53,6 +58,30 @@ public class Colombia {
 		}
 		throw new DepartmentNotFoundException();
 	}
+	public void graphicTest() {
+		DefaultCategoryDataset data = new DefaultCategoryDataset();
+		data.addValue(listDepartment[0].getListMine().size(), DepartmentName.BOYACA, "minas");
+		data.addValue(listDepartment[1].getListMine().size(), DepartmentName.CUNDINAMARCA, "minas");
+		data.addValue(listDepartment[2].getListMine().size(), DepartmentName.ANTIOQUIA, "minas");
+		data.addValue(listDepartment[3].getListMine().size(), DepartmentName.TOLIMA, "minas");
+		data.addValue(listDepartment[4].getListMine().size(), DepartmentName.SANTANDER, "minas");
+		data.addValue(listDepartment[5].getListMine().size(), DepartmentName.NORTE_DE_SANTANDER, "minas");
+		data.addValue(listDepartment[6].getListMine().size(), DepartmentName.CORDOBA, "minas");
+		data.addValue(listDepartment[7].getListMine().size(), DepartmentName.CESAR, "minas");
+		data.addValue(listDepartment[8].getListMine().size(), DepartmentName.LA_GUAJIRA, "minas");
+		data.addValue(listDepartment[9].getListMine().size(), DepartmentName.CAUCA, "minas");
+
+
+		JFreeChart graphic = ChartFactory.createBarChart3D("Minas", "#minas", "cantidad de minas", data, PlotOrientation.VERTICAL, true, true, false);
+		ChartPanel control = new ChartPanel(graphic);
+		JFrame  window  = new JFrame ("graficas minas ");
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.add(control);
+		window.setSize(500, 600);
+		window.setVisible(true);
+		window.setLocationRelativeTo(null);
+	}
+
 }
 
 
