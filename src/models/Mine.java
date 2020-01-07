@@ -1,5 +1,7 @@
 package models;
 
+import models.utils.RandomizeGenerator;
+
 public class Mine {
 	private String name;
 	private int meter;
@@ -9,6 +11,7 @@ public class Mine {
 	private MineType mineType; //EDIT
 	private int budgetMine; //EDIT(POSIBLE)
 	private Transaction transaction;
+	private int gain;
 	
 	public Mine(String name, int meter, OreType oreType, int kilogramPrice, int id, MineType mineType, int budgetMine) {
 		this.name = name;
@@ -18,6 +21,7 @@ public class Mine {
 		this.id = id;
 		this.mineType = mineType;
 		this.budgetMine = budgetMine;
+		generateDate();
 	}
 
 	public String getName() {
@@ -64,14 +68,24 @@ public class Mine {
 		this.mineType = mineType;
 	}
 	
-	public void SellOre(int kilos) {
+	public void sellOre(int kilos) {
 		transaction = new Sell();
+		gain += transaction.transaction(budgetMine, kilos*kilogramPrice);
 		budgetMine = transaction.transaction(budgetMine, kilos*kilogramPrice);
 	}
 	
 	public void buyInsumes(int value) {
 		transaction = new Buy();
+		gain-= budgetMine - transaction.transaction(budgetMine, value);
 		budgetMine = transaction.transaction(budgetMine, value);
+	}
+	
+	public void generateDate() {
+		gain = RandomizeGenerator.generateRandomInt(-20,80);
+	}
+	
+	public int getGain() {
+		return gain;
 	}
 
 }

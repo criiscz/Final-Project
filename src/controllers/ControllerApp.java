@@ -30,25 +30,33 @@ public class ControllerApp {
 					removeMine();
 					break;
 				case 4: 
-					model.graphicTest();
-				case 5:
 					editMine();
 					break;
+				case 5:
+					realizeEconomy();
+					break;
 				case 6:
+					selectReports();
+					break;
+				case 7:
 					break;
 				default:
 					throw new OptionInvalidException();
 				}
-			} while (option != 6 );
+			} while (option != 7 );
 		} catch(OptionInvalidException e) {
 			view.showError(e.getMessage());
 			init();
 		} catch(NumberFormatException e2) {
 			view.showError("Opcion Invalida");
 			init();
+		} catch (DepartmentNotFoundException e) {
+			view.showError(e.getMessage());
+			init();
 		}
 	}
 	
+
 	public void showTable() {
 		view.showTable(model.getListDepartment());
 	}
@@ -56,15 +64,17 @@ public class ControllerApp {
 	public void addMine() {
 		try {
 			model.createMine(view.readDepartment(), view.readNameMine(), view.readMeterMine(), view.readOreType(), view.readKilogram(), view.readId(), view.readMineType(), view.readBudgetMine());
-		} catch (DepartmentNotFoundException e) {
-			view.showError(e.toString());
+			view.showSucesfull();
+		} catch (DepartmentNotFoundException | NumberFormatException e) {
+			view.showError(e.getMessage());
 		}
 	}
 	
 	public void removeMine() {
 		try {
 			model.sendRemoveMine(view.readDepartment(), view.readId());
-		} catch (MineNotFoundException e) {
+			view.showSucesfull();
+		} catch (MineNotFoundException | NumberFormatException e) {
 			view.showError(e.getMessage());
 		}
 	}
@@ -107,5 +117,95 @@ public class ControllerApp {
 		} catch (MineNotFoundException | DepartmentNotFoundException e) {
 			view.showError(e.getMessage());
 		}
+	}
+	
+	private void realizeEconomy() {
+		try {
+			int option = view.readOptionEconomy();
+			switch (option) {
+			case 1:
+				sellOre(view.readKilogram(), view.readDepartment(), view.readId());
+				break;
+			case 2:
+				buyInsume(view.readMount(), view.readDepartment(), view.readId());
+			case 3:
+				break;
+			default:
+				throw new OptionInvalidException();
+			}
+		} catch (OptionInvalidException|NumberFormatException e) {
+			view.showError(e.getMessage());
+			realizeEconomy();
+		}
+	}
+	
+	private void sellOre(int kilos, DepartmentName department, int idMine) {
+		try {
+			model.sellOre(department, idMine, kilos);
+			view.showSucesfull();
+		} catch (MineNotFoundException | DepartmentNotFoundException e) {
+			view.showError(e.getMessage());
+		}
+	}
+	
+	private void buyInsume(int mount, DepartmentName department, int idMine) {
+		try {
+			model.buyInsumes(department, idMine, mount);
+			view.showSucesfull();
+		} catch (MineNotFoundException | DepartmentNotFoundException e) {
+			view.showError(e.getMessage());
+		}
+	}
+	
+	private void selectReports() throws OptionInvalidException, DepartmentNotFoundException {
+		int option = view.showMenuGeneralReports();
+		switch (option) {
+		case 1:
+			selectTypeReportQuantityMines();
+			break;
+		case 2:
+			selectTypeReportGain();
+			break;
+		case 3:
+			break;
+		default:
+			throw new OptionInvalidException();
+		}
+	}
+	
+	private void selectTypeReportQuantityMines() throws DepartmentNotFoundException, OptionInvalidException {
+		int option = view.showMenuQuantityMines();
+		switch (option) {
+		case 1:
+			createReportMinesPerDepartment();
+			break;
+		case 2:
+			break;
+		default:
+			throw new OptionInvalidException();
+		}
+	}
+	
+	private void selectTypeReportGain() throws DepartmentNotFoundException, OptionInvalidException {
+		int option = view.showMenuGains();
+		switch (option) {
+		case 1:
+			createReportGainPerMine();
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		default:
+			throw new OptionInvalidException();
+		}
+	}
+	
+	private void createReportGainPerMine() throws DepartmentNotFoundException {
+		view.showReportQuantityMines(model.generateReportGainsPerMine(view.readDepartment()));
+	}
+	
+	private void createReportMinesPerDepartment() {
+		view.showReportOne(model.generateReportMinesPerDepartment());
 	}
 }

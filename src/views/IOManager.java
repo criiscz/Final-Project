@@ -2,6 +2,14 @@ package views;
 
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 import exceptions.OptionInvalidException;
 import models.Department;
 import models.DepartmentName;
@@ -14,10 +22,10 @@ public class IOManager {
 			+ "1. Ver tabla\n"
 			+ "2. Agregar mina\n"
 			+ "3. Remover mine\n"
-			+ "4. Reporte cantidad de minas por departammento\n"
-			+ "5. Salir"
 			+ "4. Editar Mina\n"
-			+ "5. Salir\n";
+			+ "5. Economia de Mina\n"
+			+ "6. Reportes\n"
+			+ "7. Salir\n";
 	public static final String SHOW_MENU_EDIT = "Seleccione una opcion:\n"
 			+ "1. Editar Valor por kilogramo de la mina\n"
 			+ "2. Editar Tipo de mineral de mina\n"
@@ -42,12 +50,12 @@ public class IOManager {
 		in = new Scanner(System.in);
 	}
 
-	public int selectOptionMenu() throws NumberFormatException{
+	public int selectOptionMenu() {
 		System.out.println(SHOW_MENU);
 		return Integer.parseInt(in.nextLine());
 	}
 	
-	public int selectOptionMenuEdit() throws NumberFormatException{
+	public int selectOptionMenuEdit() {
 		System.out.println(SHOW_MENU_EDIT);
 		return Integer.parseInt(in.nextLine());
 	}
@@ -70,8 +78,8 @@ public class IOManager {
 		try {
 			int option = Integer.parseInt(in.nextLine());
 			return selectOreType(option);
-		} catch (OptionInvalidException e) {
-			System.out.println("Error");
+		} catch (OptionInvalidException | NumberFormatException e) {
+			System.out.println(e.getMessage());
 			return readOreType();
 		}
 
@@ -124,10 +132,10 @@ public class IOManager {
 			System.out.println(i+1 + " " + MineType.values()[i].getMineType());
 		}
 		
-		int option = Integer.parseInt(in.nextLine());
 		try {
+			int option = Integer.parseInt(in.nextLine());
 			return selectMineType(option);
-		} catch (OptionInvalidException e) {
+		} catch (OptionInvalidException | NumberFormatException e) {
 			System.out.println("Error");
 			return readMineType();
 		}
@@ -156,8 +164,8 @@ public class IOManager {
 		}
 		try {
 			return selectDepartment(Integer.parseInt(in.nextLine()));
-		} catch (OptionInvalidException e) {
-			showError(e.toString());
+		} catch (OptionInvalidException | NumberFormatException e) {
+			showError(e.getMessage());
 			return readDepartment();
 		}
 	}
@@ -216,6 +224,79 @@ public class IOManager {
 	
 	public void showSucesfull() {
 		System.out.println("Operacion Ejecutada Exitosamente");
+	}
+
+	public int readMount() {
+		System.out.print("Ingrese el valor total de los insumos a comprar: $");
+		return Integer.parseInt(in.nextLine());
+	}
+
+	public int readOptionEconomy() {
+		System.out.println("Que desea hacer?\n"
+				+ "1. Vender mineral por kilos.\n"
+				+ "2. Comprar insumos.\n"
+				+ "3. Atras.");
+		return Integer.parseInt(in.nextLine());
+	}
+	
+	public void showReportOne(Object[] report) {
+		String[][] data = (String[][]) report[0];
+		String[][] convention = (String[][]) report[1];
+		System.out.println("N° Minas|");
+		for (int i = data.length - 1; i >= 0 ; i--) {
+			for (int j = 0; j < data[i].length; j++) {
+				if(data[i][j] == null) 
+					System.out.print("   ");
+				else
+					System.out.print(data[i][j]);
+			}
+			System.out.println("");
+		}
+		System.out.println();
+		System.out.println();
+		System.out.println("----------------------------");
+		System.out.println("	Convenciones");
+		System.out.println("----------------------------");
+		System.out.println(String.format("%2$-5s %1$-10s", new Object[] {"Nombre","Num"}));
+		System.out.println("----------------------------");
+		
+		for (int i = 0; i < convention.length; i++) {
+				System.out.println(String.format("%2$-5s %1$-10s",(Object[]) convention[i]));
+				System.out.println("----------------------------");
+		}
+	}
+	
+	public int showMenuGeneralReports() {
+		System.out.println("1. Reporte de cantidad de minasa.\n"
+				+ "2. Reporte de ganancias.\n"
+				+ "3. Atras.");
+		return Integer.parseInt(in.nextLine());
+	}
+	
+	public int showMenuQuantityMines() {
+		System.out.println("1. Reporte de cantidad de minas por departamento.\n"
+				+ "2. Atras.");
+		return Integer.parseInt(in.nextLine());
+	}
+	
+	public int showMenuGains() {
+		System.out.println("1. Reporte de ganancias de minas por departamento.\n"
+				+ "2. Reporte de ganancias por departamento.\n"
+				+ "3. Atras.");
+		return Integer.parseInt(in.nextLine());
+	}
+	
+	public void showReportQuantityMines(Object[] arrayData) {
+		JFreeChart graphic = ChartFactory.createBarChart3D("Cantidad de ganancias de cada mina en " + arrayData[1], "#Minas", "Ganancias($)",(DefaultCategoryDataset) arrayData[0], PlotOrientation.VERTICAL, true, true, false);//D("Minas", "#minas", "cantidad de minas", data, PlotOrientation.VERTICAL, true, true, false);
+		ChartPanel control = new ChartPanel(graphic);
+		JFrame  window  = new JFrame ("Reporte De Ganancias Por Mina");
+		window.add(control);
+		window.setSize(800, 600);
+		window.setResizable(false);
+		window.setLocationRelativeTo(null);
+		window.setVisible(true);
+		window.setAlwaysOnTop(true);
+		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 

@@ -13,7 +13,7 @@ public enum DepartmentName {
 	CESAR("Cesar"), 
 	CORDOBA("Cordoba");
 	
-	String name;
+	private String name;
 	
 	private DepartmentName(String name) {
 		this.name = name;
