@@ -3,9 +3,13 @@ package models.utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import exceptions.InvalidConstantException;
+
 public class MatrixReport {
+	private static final String DEPART = "Depart:  ";
+	private static final String ORE = "Mineral: ";
 	
-	public static Object[] generateMatrixReport(Map<String,Integer> map) {
+	public static Object[] generateMatrixReport(Map<String,Integer> map, int option) throws InvalidConstantException {
 		Object[] keys = map.keySet().toArray();
 		Object[] values = map.values().toArray(); 
 		
@@ -20,7 +24,7 @@ public class MatrixReport {
 		
 		String[][] matrix = new String[defineParOrNot(searchMayor(values)) + 2][num.length + 1];
 		int counter = 1;
-		return new Object[] {generateGraphic(matrix, values, num, counter), createConventions(nameDepartment, num)};
+		return new Object[] {generateGraphic(matrix, values, num, counter, option), createConventions(nameDepartment, num)};
 		
 			
 	}
@@ -41,7 +45,7 @@ public class MatrixReport {
 			return (values/1)+1;
 	}
 	
-	private static String[][] generateGraphic(String[][] matrix, Object[] values, Object[] num, int counter){
+	private static String[][] generateGraphic(String[][] matrix, Object[] values, Object[] num, int counter, int option) throws InvalidConstantException{
 		for (int i = 1; i < matrix[0].length ; i++) {
 			int val = defineParOrNot((int)values[i-1]);
 			for (int j = 0; j < val; j++) {
@@ -57,7 +61,7 @@ public class MatrixReport {
 			matrix[0][i] = " " + num[i-1] + " ";
 			counter = 1;
 		}
-		matrix[0][0] = "Depart:  ";
+		matrix[0][0] = selectConventionName(option);
 		
 		return matrix;
 	}
@@ -71,6 +75,15 @@ public class MatrixReport {
 		return data;
 	}
 	
-	
+	private static String selectConventionName(int option) throws InvalidConstantException {
+		switch (option) {
+		case 1:
+			return DEPART;
+		case 2:
+			return ORE;
+		default:
+			throw new InvalidConstantException();
+		}
+	}
 	
 }

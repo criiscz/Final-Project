@@ -1,7 +1,13 @@
 package controllers;
+import exceptions.DepartmentNotFoundException;
+import exceptions.InvalidConstantException;
+import exceptions.MineNotFoundException;
+import exceptions.OptionInvalidException;
+import models.Colombia;
+import models.DepartmentName;
+import models.MineType;
+import models.OreType;
 import views.IOManager;
-import exceptions.*;
-import models.*;
 public class ControllerApp {
 	private IOManager view;
 	private Colombia model;
@@ -39,6 +45,7 @@ public class ControllerApp {
 					selectReports();
 					break;
 				case 7:
+					System.exit(0);
 					break;
 				default:
 					throw new OptionInvalidException();
@@ -124,10 +131,10 @@ public class ControllerApp {
 			int option = view.readOptionEconomy();
 			switch (option) {
 			case 1:
-				sellOre(view.readKilogram(), view.readDepartment(), view.readId());
+				sellOre( view.readDepartment(), view.readId(), view.readKilogram());
 				break;
 			case 2:
-				buyInsume(view.readMount(), view.readDepartment(), view.readId());
+				buyInsume( view.readDepartment(), view.readId(), view.readMount());
 			case 3:
 				break;
 			default:
@@ -139,7 +146,7 @@ public class ControllerApp {
 		}
 	}
 	
-	private void sellOre(int kilos, DepartmentName department, int idMine) {
+	private void sellOre( DepartmentName department, int idMine, int kilos) {
 		try {
 			model.sellOre(department, idMine, kilos);
 			view.showSucesfull();
@@ -148,7 +155,7 @@ public class ControllerApp {
 		}
 	}
 	
-	private void buyInsume(int mount, DepartmentName department, int idMine) {
+	private void buyInsume( DepartmentName department, int idMine, int mount ) {
 		try {
 			model.buyInsumes(department, idMine, mount);
 			view.showSucesfull();
@@ -180,12 +187,16 @@ public class ControllerApp {
 			createReportMinesPerDepartment();
 			break;
 		case 2:
+			createReportMinesPerOre();
+			break;
+		case 3:
 			break;
 		default:
 			throw new OptionInvalidException();
 		}
 	}
 	
+
 	private void selectTypeReportGain() throws DepartmentNotFoundException, OptionInvalidException {
 		int option = view.showMenuGains();
 		switch (option) {
@@ -193,6 +204,7 @@ public class ControllerApp {
 			createReportGainPerMine();
 			break;
 		case 2:
+			createReportGainPerDepartment();
 			break;
 		case 3:
 			break;
@@ -206,6 +218,22 @@ public class ControllerApp {
 	}
 	
 	private void createReportMinesPerDepartment() {
-		view.showReportOne(model.generateReportMinesPerDepartment());
+		try {
+			view.showReportOne(model.generateReportMinesPerDepartment());
+		} catch (InvalidConstantException e) {
+			view.showError(e.getMessage());
+		}
+	}
+	
+	private void createReportMinesPerOre() {
+		try {
+			view.showReportOne(model.generateReportMinesPerOre());
+		} catch (InvalidConstantException e) {
+			view.showError(e.getMessage());
+		}
+	}
+	
+	private void createReportGainPerDepartment() {
+		view.showReportGains(model.generateReportGain());
 	}
 }

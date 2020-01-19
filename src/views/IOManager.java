@@ -267,7 +267,7 @@ public class IOManager {
 	}
 	
 	public int showMenuGeneralReports() {
-		System.out.println("1. Reporte de cantidad de minasa.\n"
+		System.out.println("1. Reporte de cantidad de minas.\n"
 				+ "2. Reporte de ganancias.\n"
 				+ "3. Atras.");
 		return Integer.parseInt(in.nextLine());
@@ -275,7 +275,8 @@ public class IOManager {
 	
 	public int showMenuQuantityMines() {
 		System.out.println("1. Reporte de cantidad de minas por departamento.\n"
-				+ "2. Atras.");
+				+ "2. Reporte de cantidad de minas de determinado mineral\n"
+				+ "3. Salir");
 		return Integer.parseInt(in.nextLine());
 	}
 	
@@ -299,6 +300,18 @@ public class IOManager {
 		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
+	public void showReportGains(DefaultCategoryDataset data) {
+		JFreeChart graphic = ChartFactory.createBarChart3D("Ganancias por departamento", "#Departamentos", "Ganancias($)", data, PlotOrientation.VERTICAL, true, true, false);//D("Minas", "#minas", "cantidad de minas", data, PlotOrientation.VERTICAL, true, true, false);
+		ChartPanel control = new ChartPanel(graphic);
+		JFrame  window  = new JFrame ("Reporte De Ganancias por departamento");
+		window.add(control);
+		window.setSize(800, 600);
+		window.setResizable(false);
+		window.setLocationRelativeTo(null);
+		window.setVisible(true);
+		window.setAlwaysOnTop(true);
+		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
 
 }
 
