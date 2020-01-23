@@ -9,6 +9,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 import exceptions.OptionInvalidException;
 import models.Department;
@@ -312,6 +313,7 @@ public class IOManager {
 		window.setAlwaysOnTop(true);
 		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
+	
 
 }
 

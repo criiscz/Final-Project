@@ -4,7 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.*;
+import org.jfree.data.general.DefaultPieDataset;
+
 import exceptions.DepartmentNotFoundException;
 import exceptions.InvalidConstantException;
 import exceptions.MineNotFoundException;
@@ -110,7 +115,6 @@ public class Colombia {
 		}
 		return counter;
 	}
-	
 	public DefaultCategoryDataset generateReportGain() {
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
 		for (int i = 0; i < listDepartment.length; i++) {

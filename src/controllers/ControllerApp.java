@@ -42,6 +42,7 @@ public class ControllerApp {
 					realizeEconomy();
 					break;
 				case 6:
+//					model.reportCircle();
 					selectReports();
 					break;
 				case 7:
