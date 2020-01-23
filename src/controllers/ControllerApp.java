@@ -196,6 +196,7 @@ public class ControllerApp {
 			break;
 		default:
 			throw new OptionInvalidException();
+			
 		}
 	}
 	
