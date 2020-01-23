@@ -9,7 +9,6 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
 
 import exceptions.OptionInvalidException;
 import models.Department;
@@ -277,7 +276,8 @@ public class IOManager {
 	public int showMenuQuantityMines() {
 		System.out.println("1. Reporte de cantidad de minas por departamento.\n"
 				+ "2. Reporte de cantidad de minas de determinado mineral\n"
-				+ "3. Salir");
+				+ "3. Reporte de cantidad de minas de determinado tipo.\n"
+				+ "4. Salir");
 		return Integer.parseInt(in.nextLine());
 	}
 	
@@ -289,7 +289,7 @@ public class IOManager {
 	}
 	
 	public void showReportQuantityMines(Object[] arrayData) {
-		JFreeChart graphic = ChartFactory.createBarChart3D("Cantidad de ganancias de cada mina en " + arrayData[1], "#Minas", "Ganancias($)",(DefaultCategoryDataset) arrayData[0], PlotOrientation.VERTICAL, true, true, false);//D("Minas", "#minas", "cantidad de minas", data, PlotOrientation.VERTICAL, true, true, false);
+		JFreeChart graphic = ChartFactory.createBarChart3D("Cantidad de ganancias de cada mina en " + arrayData[0], "#Minas", "Ganancias($)",(DefaultCategoryDataset) arrayData[0], PlotOrientation.VERTICAL, true, true, false);
 		ChartPanel control = new ChartPanel(graphic);
 		JFrame  window  = new JFrame ("Reporte De Ganancias Por Mina");
 		window.add(control);
@@ -313,7 +313,6 @@ public class IOManager {
 		window.setAlwaysOnTop(true);
 		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
-	
 
 }
 

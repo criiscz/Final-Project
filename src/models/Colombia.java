@@ -4,16 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.*;
-import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 import exceptions.DepartmentNotFoundException;
 import exceptions.InvalidConstantException;
 import exceptions.MineNotFoundException;
-import models.utils.*;
+import models.utils.MatrixReport;
 
 public class Colombia {
 	private Department[] listDepartment;
@@ -76,6 +72,7 @@ public class Colombia {
 	}
 	
 	public Object[] generateReportGainsPerMine(DepartmentName dep) throws DepartmentNotFoundException {
+//		DefaultCategoryDataset data = new DefaultCategoryDataset();
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
 		List<Mine> list = listDepartment[searchDepartment(dep)].getListMine();
 		for (int i = 0; i < list.size(); i++) {
@@ -93,16 +90,16 @@ public class Colombia {
 		for (int i = 0; i < listDepartment.length; i++) {
 			data.put(listDepartment[i].getName(),listDepartment[i].getListMine().size());
 		}
-		return MatrixReport.generateMatrixReport(data, 1);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART);
 	}
 	
 	public Object[] generateReportMinesPerOre() throws InvalidConstantException {
 		Map<String, Integer> data = new HashMap<String, Integer>();
-		for (int i = 0; i < listDepartment.length; i++) {
+		for (int i = 0; i < OreType.values().length; i++) {
 			OreType ore = OreType.values()[i];
 			data.put(ore.getOreType(), searchQuantityMines(ore));
 		}
-		return MatrixReport.generateMatrixReport(data, 2);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.ORE);
 	}
 	
 	public int searchQuantityMines(OreType ore) {
@@ -115,12 +112,33 @@ public class Colombia {
 		}
 		return counter;
 	}
+	
 	public DefaultCategoryDataset generateReportGain() {
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
 		for (int i = 0; i < listDepartment.length; i++) {
 			data.addValue(listDepartment[i].getGain(), listDepartment[i].getName(), "Departamentos");
 		}
 		return data;
+	}
+	
+	public Object[] generateReportQuantityTypeMines(){
+		Map<String,Integer> data = new HashMap<String,Integer>();
+		for (int i = 0; i < MineType.values().length; i++) {
+			MineType mine = MineType.values()[i];
+			data.put(mine.getMineType(), searchQuantityTypeMines(mine));
+		}
+		return MatrixReport.generateMatrixReport(data, MatrixReport.TYPE_MINE);
+	}
+	
+	public int searchQuantityTypeMines(MineType mine) {
+		int counter = 0;
+		for (int i = 0; i < listDepartment.length; i++) {
+			for (int j = 0; j < listDepartment[i].getListMine().size(); j++) {
+				if(listDepartment[i].getListMine().get(j).getMineType() == mine)
+					counter++;
+			}
+		}
+		return counter;
 	}
 	
 }

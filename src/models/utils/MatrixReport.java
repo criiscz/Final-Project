@@ -3,13 +3,12 @@ package models.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import exceptions.InvalidConstantException;
-
 public class MatrixReport {
-	private static final String DEPART = "Depart:  ";
-	private static final String ORE = "Mineral: ";
+	public static final String DEPART = "Depart:  ";
+	public static final String ORE = "Mineral: ";
+	public static final String TYPE_MINE = "Tipo:    ";
 	
-	public static Object[] generateMatrixReport(Map<String,Integer> map, int option) throws InvalidConstantException {
+	public static Object[] generateMatrixReport(Map<String,Integer> map, String option) {
 		Object[] keys = map.keySet().toArray();
 		Object[] values = map.values().toArray(); 
 		
@@ -45,7 +44,7 @@ public class MatrixReport {
 			return (values/1)+1;
 	}
 	
-	private static String[][] generateGraphic(String[][] matrix, Object[] values, Object[] num, int counter, int option) throws InvalidConstantException{
+	private static String[][] generateGraphic(String[][] matrix, Object[] values, Object[] num, int counter, String option){
 		for (int i = 1; i < matrix[0].length ; i++) {
 			int val = defineParOrNot((int)values[i-1]);
 			for (int j = 0; j < val; j++) {
@@ -61,7 +60,7 @@ public class MatrixReport {
 			matrix[0][i] = " " + num[i-1] + " ";
 			counter = 1;
 		}
-		matrix[0][0] = selectConventionName(option);
+		matrix[0][0] = option;
 		
 		return matrix;
 	}
@@ -75,15 +74,5 @@ public class MatrixReport {
 		return data;
 	}
 	
-	private static String selectConventionName(int option) throws InvalidConstantException {
-		switch (option) {
-		case 1:
-			return DEPART;
-		case 2:
-			return ORE;
-		default:
-			throw new InvalidConstantException();
-		}
-	}
 	
 }

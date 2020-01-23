@@ -42,7 +42,6 @@ public class ControllerApp {
 					realizeEconomy();
 					break;
 				case 6:
-//					model.reportCircle();
 					selectReports();
 					break;
 				case 7:
@@ -191,6 +190,9 @@ public class ControllerApp {
 			createReportMinesPerOre();
 			break;
 		case 3:
+			createReportTypeMines();
+			break;
+		case 4:
 			break;
 		default:
 			throw new OptionInvalidException();
@@ -236,5 +238,9 @@ public class ControllerApp {
 	
 	private void createReportGainPerDepartment() {
 		view.showReportGains(model.generateReportGain());
+	}
+	
+	private void createReportTypeMines() {
+		view.showReportOne(model.generateReportQuantityTypeMines());
 	}
 }
