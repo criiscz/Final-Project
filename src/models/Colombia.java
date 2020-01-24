@@ -92,7 +92,23 @@ public class Colombia {
 		}
 		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART);
 	}
-	
+	public 	Object[] generateReportM2perDepartment() throws InvalidConstantException{
+		Map<String,Integer> data = new HashMap<String,Integer>();
+		for (int i = 0; i < listDepartment.length; i++) {
+			data.put(listDepartment[i].getName(),searchQuantityM2PerDepartment(i));
+		}
+		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART);
+		
+	}
+	public int searchQuantityM2PerDepartment(int count) {
+		int counter = 0;
+			for (int j = 0; j < listDepartment[count].getListMine().size(); j++) {
+			
+					counter += listDepartment[count].getListMine().get(j).getMeter() ;
+			}
+		
+		return counter;
+	}
 	public Object[] generateReportMinesPerOre() throws InvalidConstantException {
 		Map<String, Integer> data = new HashMap<String, Integer>();
 		for (int i = 0; i < OreType.values().length; i++) {

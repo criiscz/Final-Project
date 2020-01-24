@@ -287,6 +287,11 @@ public class IOManager {
 				+ "3. Atras.");
 		return Integer.parseInt(in.nextLine());
 	}
+	public int showMenuExtention() {
+		System.out.println("1.Extension(m2) de minas por departamento.\n");
+		return Integer.parseInt(in.nextLine());
+
+	}
 	
 	public void showReportQuantityMines(Object[] arrayData) {
 		JFreeChart graphic = ChartFactory.createBarChart3D("Cantidad de ganancias de cada mina en " + arrayData[0], "#Minas", "Ganancias($)",(DefaultCategoryDataset) arrayData[0], PlotOrientation.VERTICAL, true, true, false);
