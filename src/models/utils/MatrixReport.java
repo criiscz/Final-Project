@@ -8,7 +8,7 @@ public class MatrixReport {
 	public static final String ORE = "Mineral: ";
 	public static final String TYPE_MINE = "Tipo:    ";
 	
-	public static Object[] generateMatrixReport(Map<String,Integer> map, String option) {
+	public static Object[] generateMatrixReport(Map<String,Integer> map, String option, int scale) {
 		Object[] keys = map.keySet().toArray();
 		Object[] values = map.values().toArray(); 
 		
@@ -21,9 +21,9 @@ public class MatrixReport {
 		Object[] nameDepartment = name.keySet().toArray();
 		Object[] num = name.values().toArray();
 		
-		String[][] matrix = new String[defineParOrNot(searchMayor(values)) + 2][num.length + 1];
-		int counter = 1;
-		return new Object[] {generateGraphic(matrix, values, num, counter, option), createConventions(nameDepartment, num)};
+		String[][] matrix = new String[defineParOrNot(searchMayor(values), scale) + 2][num.length + 1];
+		int counter = scale;
+		return new Object[] {generateGraphic(matrix, values, num, counter, option,scale), createConventions(nameDepartment, num)};
 		
 			
 	}
@@ -37,28 +37,28 @@ public class MatrixReport {
 		return mayor;
 	}
 	
-	private static int defineParOrNot(int values) {
-		if(values%1 == 0)
-			return values/1;
+	private static int defineParOrNot(int values, int scale) {
+		if(values%scale== 0)
+			return values/scale;
 		else
-			return (values/1)+1;
+			return (values/scale)+1;
 	}
 	
-	private static String[][] generateGraphic(String[][] matrix, Object[] values, Object[] num, int counter, String option){
+	private static String[][] generateGraphic(String[][] matrix, Object[] values, Object[] num, int counter, String option, int scale){
 		for (int i = 1; i < matrix[0].length ; i++) {
-			int val = defineParOrNot((int)values[i-1]);
+			int val = defineParOrNot((int)values[i-1], scale);
 			for (int j = 0; j < val; j++) {
-				if((int)values[i-1] % 1 != 0 && j + 1 == val)
-					matrix[j+2][i] = "[" + (int)values[i-1]%1 + "]";
+				if((int)values[i-1] % scale != 0 && j + 1 == val)
+					matrix[j+2][i] = "[" + (int)values[i-1]%scale + "]";
 				else
 					matrix[j+2][i] = "[+]";
 				matrix[j+2][0] = " "+counter+"	|";
-				counter+=1;
+				counter+=scale;
 			}
 			matrix[1][0] = "---------";
 			matrix[1][i] = "---";
 			matrix[0][i] = " " + num[i-1] + " ";
-			counter = 1;
+			counter = scale;
 		}
 		matrix[0][0] = option;
 		

@@ -90,7 +90,7 @@ public class Colombia {
 		for (int i = 0; i < listDepartment.length; i++) {
 			data.put(listDepartment[i].getName(),listDepartment[i].getListMine().size());
 		}
-		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART,1);
 	}
 	
 	public Object[] generateReportMinesPerOre() throws InvalidConstantException {
@@ -99,7 +99,7 @@ public class Colombia {
 			OreType ore = OreType.values()[i];
 			data.put(ore.getOreType(), searchQuantityMines(ore));
 		}
-		return MatrixReport.generateMatrixReport(data, MatrixReport.ORE);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.ORE,1);
 	}
 	
 	public int searchQuantityMines(OreType ore) {
@@ -127,7 +127,7 @@ public class Colombia {
 			MineType mine = MineType.values()[i];
 			data.put(mine.getMineType(), searchQuantityTypeMines(mine));
 		}
-		return MatrixReport.generateMatrixReport(data, MatrixReport.TYPE_MINE);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.TYPE_MINE,4);
 	}
 	
 	public int searchQuantityTypeMines(MineType mine) {
@@ -139,6 +139,15 @@ public class Colombia {
 			}
 		}
 		return counter;
+	}
+	
+	public Object[] generateReportm2PerDepartment(DepartmentName department) throws DepartmentNotFoundException {
+		Map<String,Integer> data = new HashMap<String,Integer>();
+		List<Mine> mine = listDepartment[searchDepartment(department)].getListMine();
+		for (int i = 0; i < mine.size(); i++) {
+			data.put(mine.get(i).getName(),mine.get(i).getMeter());
+		}
+		return MatrixReport.generateMatrixReport(data, MatrixReport.TYPE_MINE, 40);
 	}
 	
 }

@@ -269,7 +269,8 @@ public class IOManager {
 	public int showMenuGeneralReports() {
 		System.out.println("1. Reporte de cantidad de minas.\n"
 				+ "2. Reporte de ganancias.\n"
-				+ "3. Atras.");
+				+ "3. Reporte de Extension.\n"
+				+ "4. Atras.");
 		return Integer.parseInt(in.nextLine());
 	}
 	
@@ -312,6 +313,12 @@ public class IOManager {
 		window.setVisible(true);
 		window.setAlwaysOnTop(true);
 		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
+
+	public int showMenuExtention() {
+		System.out.println("1. Reporte de Extencion de m2 de minas por departamento.\n"
+				+ "2. Salir.");
+		return Integer.parseInt(in.nextLine());
 	}
 
 }

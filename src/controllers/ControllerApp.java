@@ -174,6 +174,9 @@ public class ControllerApp {
 			selectTypeReportGain();
 			break;
 		case 3:
+			selectTypeReportExtention();
+			break;
+		case 4:
 			break;
 		default:
 			throw new OptionInvalidException();
@@ -215,6 +218,23 @@ public class ControllerApp {
 		default:
 			throw new OptionInvalidException();
 		}
+	}
+	
+	private void selectTypeReportExtention() throws DepartmentNotFoundException {
+		int option = view.showMenuExtention();
+		switch (option) {
+		case 1:
+			createReportExtentionMinePerDepartment();
+			break;
+		case 2:
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private void createReportExtentionMinePerDepartment() throws DepartmentNotFoundException {
+		view.showReportOne(model.generateReportm2PerDepartment(view.readDepartment()));
 	}
 	
 	private void createReportGainPerMine() throws DepartmentNotFoundException {
