@@ -246,7 +246,7 @@ public class IOManager {
 		for (int i = data.length - 1; i >= 0 ; i--) {
 			for (int j = 0; j < data[i].length; j++) {
 				if(data[i][j] == null) 
-					System.out.print("   ");
+					System.out.printf("%1$-5s","");
 				else
 					System.out.print(data[i][j]);
 			}

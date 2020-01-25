@@ -21,9 +21,9 @@ public class MatrixReport {
 		Object[] nameDepartment = name.keySet().toArray();
 		Object[] num = name.values().toArray();
 		
-		String[][] matrix = new String[defineParOrNot(searchMayor(values), scale) + 2][num.length + 1];
+		String[][] matrix = new String[defineParOrNot(searchMayor(values), scale) + 2][num.length + num.length + 1];
 		int counter = scale;
-		return new Object[] {generateGraphic(matrix, values, num, counter, option,scale), createConventions(nameDepartment, num)};
+		return new Object[] {generateGraphic(matrix, values, num, counter, option,scale,num.length + 1), createConventions(nameDepartment, num)};
 		
 			
 	}
@@ -44,21 +44,24 @@ public class MatrixReport {
 			return (values/scale)+1;
 	}
 	
-	private static String[][] generateGraphic(String[][] matrix, Object[] values, Object[] num, int counter, String option, int scale){
-		for (int i = 1; i < matrix[0].length ; i++) {
+	private static String[][] generateGraphic(String[][] matrix, Object[] values, Object[] num, int counter, String option, int scale, int valueOfColumns){
+		int test = 1;
+		for (int i = 1; i < valueOfColumns; i++) {
 			int val = defineParOrNot((int)values[i-1], scale);
 			for (int j = 0; j < val; j++) {
 				if((int)values[i-1] % scale != 0 && j + 1 == val)
-					matrix[j+2][i] = "[" + (int)values[i-1]%scale + "]";
+					matrix[j+2][test] =String.format("%1$-5s", ("[" + (int)values[i-1]%scale + "]"));
 				else
-					matrix[j+2][i] = "[+]";
+					matrix[j+2][test] = String.format("%1$-5s", "[+]");
 				matrix[j+2][0] = " "+counter+"	|";
 				counter+=scale;
 			}
 			matrix[1][0] = "---------";
-			matrix[1][i] = "---";
-			matrix[0][i] = " " + num[i-1] + " ";
+			matrix[1][test-1] = String.format("%1$-5s","----");
+			matrix[1][test] = String.format("%1$-5s","----");
+			matrix[0][test] = String.format("%1$-5s",(" " + num[i-1] + " "));
 			counter = scale;
+			test += 2;
 		}
 		matrix[0][0] = option;
 		
