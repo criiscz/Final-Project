@@ -317,7 +317,8 @@ public class IOManager {
 
 	public int showMenuExtention() {
 		System.out.println("1. Reporte de Extencion de m2 de minas por departamento.\n"
-				+ "2. Salir.");
+				+ "2. Reporte de Extencion de m2 por departamento.\n"
+				+ "3. Atras.");
 		return Integer.parseInt(in.nextLine());
 	}
 
