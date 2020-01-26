@@ -36,8 +36,9 @@ public class Colombia {
 		throw new DepartmentNotFoundException();
 	}
 	
-	public void createMine(DepartmentName department, String nameMine,int meter, OreType oreType, int kilogramPrice, int id, MineType mineType,int budgetMine) throws DepartmentNotFoundException {
-		listDepartment[searchDepartment(department)].addMine(new Mine(nameMine,meter,oreType, kilogramPrice,id,mineType,budgetMine));
+	public void createMine(DepartmentName department, String nameMine,int meter, OreType oreType, int kilogramPrice, MineType mineType,int budgetMine) throws DepartmentNotFoundException {
+		int position = searchDepartment(department);
+		listDepartment[position].addMine(new Mine(nameMine,meter,oreType, kilogramPrice,listDepartment[position].getListMine().size(),mineType,budgetMine));
 	}
 	
 	public void sendRemoveMine(DepartmentName department, int id) throws MineNotFoundException {
@@ -169,4 +170,40 @@ public class Colombia {
 		return MatrixReport.generateMatrixReport(data, MatrixReport.TYPE_MINE, 40);
 	}
 	
+	public Object[] generateReportPricePerKilogram() {
+		Map<String, Integer> data = new HashMap<String, Integer>();
+		for (int i = 0; i < OreType.values().length; i++) {
+			OreType ore = OreType.values()[i];
+			data.put(ore.getOreType(),searchAveragePrice(ore));
+		}
+		return MatrixReport.generateMatrixReport(data, MatrixReport.ORE, 1000);
+	}
+	
+	private int searchAveragePrice(OreType ore) {
+		int priceTotalOre = 0, counter = 0;
+		for (int i = 0; i < listDepartment.length; i++) {
+			for (int j = 0; j < listDepartment[i].getListMine().size(); j++) {
+				if(listDepartment[i].getListMine().get(j).getOreType() == ore ) {
+					priceTotalOre += listDepartment[i].getListMine().get(j).getKilogramPrice();
+					counter++;
+				}
+			}
+		}
+		if(counter == 0)
+			return 0;
+		else
+			return priceTotalOre / counter;
+	}
+	
+	public Object[] generateReportPricePerDepartment() {
+		Map<String,Integer> data = new HashMap<String,Integer>();
+		for (int i = 0; i < listDepartment.length; i++) {
+			int totalPrice = 0;
+			for (int j = 0; j < listDepartment[i].getListMine().size(); j++) {
+				totalPrice += listDepartment[i].getListMine().get(j).getKilogramPrice();
+			}
+			data.put(listDepartment[i].getName(), totalPrice);
+		}
+		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART, 1000);
+	}
 }

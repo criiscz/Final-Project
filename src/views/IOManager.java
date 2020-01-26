@@ -246,7 +246,7 @@ public class IOManager {
 		for (int i = data.length - 1; i >= 0 ; i--) {
 			for (int j = 0; j < data[i].length; j++) {
 				if(data[i][j] == null) 
-					System.out.printf("%1$-5s","");
+					System.out.printf("%1$-5s"," . ");
 				else
 					System.out.print(data[i][j]);
 			}
@@ -268,9 +268,10 @@ public class IOManager {
 	
 	public int showMenuGeneralReports() {
 		System.out.println("1. Reporte de cantidad de minas.\n"
-				+ "2. Reporte de ganancias.\n"
+				+ "2. Reporte de Ganancias.\n"
 				+ "3. Reporte de Extension.\n"
-				+ "4. Atras.");
+				+ "4. Reporte de Precio.\n"
+				+ "5. Atras.");
 		return Integer.parseInt(in.nextLine());
 	}
 	
@@ -318,6 +319,13 @@ public class IOManager {
 	public int showMenuExtention() {
 		System.out.println("1. Reporte de Extencion de m2 de minas por departamento.\n"
 				+ "2. Reporte de Extencion de m2 por departamento.\n"
+				+ "3. Atras.");
+		return Integer.parseInt(in.nextLine());
+	}
+
+	public int showMenuPriceMines() {
+		System.out.println("1. Reporte de Precio promedio de cada mineral.\n"
+				+ "2. Reporte de Precio total de material explotado por departamento.\n"
 				+ "3. Atras.");
 		return Integer.parseInt(in.nextLine());
 	}

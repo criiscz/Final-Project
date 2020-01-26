@@ -70,7 +70,7 @@ public class ControllerApp {
 	
 	public void addMine() {
 		try {
-			model.createMine(view.readDepartment(), view.readNameMine(), view.readMeterMine(), view.readOreType(), view.readKilogram(), view.readId(), view.readMineType(), view.readBudgetMine());
+			model.createMine(view.readDepartment(), view.readNameMine(), view.readMeterMine(), view.readOreType(), view.readKilogram(), view.readMineType(), view.readBudgetMine());
 			view.showSucesfull();
 		} catch (DepartmentNotFoundException | NumberFormatException e) {
 			view.showError(e.getMessage());
@@ -177,12 +177,37 @@ public class ControllerApp {
 			selectTypeReportExtention();
 			break;
 		case 4:
+			selectReportPriceMines();
 			break;
 		default:
 			throw new OptionInvalidException();
 		}
 	}
 	
+	private void selectReportPriceMines() throws OptionInvalidException {
+		int option = view.showMenuPriceMines();
+		switch(option) {
+		case 1:
+			createReportPriceMines();
+			break;
+		case 2:
+			createReportPricePerDepartment();
+			break;
+		case 3:
+			break;
+		default:
+			throw new OptionInvalidException();
+		}
+	}
+	
+	private void createReportPricePerDepartment() {
+		view.showReportOne(model.generateReportPricePerDepartment());
+	}
+
+	private void createReportPriceMines() {
+		view.showReportOne(model.generateReportPricePerKilogram());
+	}
+
 	private void selectTypeReportQuantityMines() throws DepartmentNotFoundException, OptionInvalidException {
 		int option = view.showMenuQuantityMines();
 		switch (option) {
@@ -266,6 +291,7 @@ public class ControllerApp {
 	private void createReportTypeMines() {
 		view.showReportOne(model.generateReportQuantityTypeMines());
 	}
+	
 	private void createReportExtention(){
 		view.showReportOne(model.generateReportM2perDepartment());
 	}
