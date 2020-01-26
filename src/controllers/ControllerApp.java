@@ -183,7 +183,10 @@ public class ControllerApp {
 			throw new OptionInvalidException();
 		}
 	}
-	
+	/**
+	 * 
+	 * @throws OptionInvalidException
+	 */
 	private void selectReportPriceMines() throws OptionInvalidException {
 		int option = view.showMenuPriceMines();
 		switch(option) {
@@ -221,6 +224,9 @@ public class ControllerApp {
 			createReportTypeMines();
 			break;
 		case 4:
+			createReportMinesInColombia();
+			break;
+		case 5:
 			break;
 		default:
 			throw new OptionInvalidException();
@@ -295,4 +301,21 @@ public class ControllerApp {
 	private void createReportExtention(){
 		view.showReportOne(model.generateReportM2perDepartment());
 	}
+	private void createReportMinesInColombia() {
+		try {
+			view.showReportOne(model.generateReportQuantityMinesInColombia());
+		} catch (InvalidConstantException e) {
+			view.showError(e.getMessage());
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
