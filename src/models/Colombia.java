@@ -1,6 +1,7 @@
 package models;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -10,10 +11,13 @@ import exceptions.DepartmentNotFoundException;
 import exceptions.InvalidConstantException;
 import exceptions.MineNotFoundException;
 import models.utils.MatrixReport;
-
 public class Colombia {
+	
 	private Department[] listDepartment;
 	
+	/**
+	 * Holalaaa
+	 */
 	public Colombia() {
 		listDepartment = new Department[10]; 
 	}
@@ -28,6 +32,13 @@ public class Colombia {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param name
+	 * nombre del departamento
+	 * @return
+	 * @throws DepartmentNotFoundException
+	 */
 	public int searchDepartment(DepartmentName name) throws DepartmentNotFoundException {
 		for (int i = 0; i < listDepartment.length; i++) {
 			if(listDepartment[i].getName().equals(name.getName()))
