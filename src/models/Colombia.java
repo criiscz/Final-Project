@@ -105,6 +105,16 @@ public class Colombia {
 		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART,1);
 	}
 	
+	public Object[] generateReportQuantityMinesInColombia() throws InvalidConstantException{
+		Map<String, Integer> data = new HashMap<String, Integer>();
+		int count = 0;
+		for (int i = 0; i < listDepartment.length; i++) {
+			count  +=  listDepartment[i].getListMine().size();
+ 		}
+		data.put("Colombia", count);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART, 1);
+	}
+	
 	public 	Object[] generateReportM2perDepartment() {
 		Map<String,Integer> data = new HashMap<String,Integer>();
 		for (int i = 0; i < listDepartment.length; i++) {
@@ -113,6 +123,7 @@ public class Colombia {
 		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART,200);
 		
 	}
+	
 	
 	public int searchQuantityM2PerDepartment(int count) {
 		int counter = 0;

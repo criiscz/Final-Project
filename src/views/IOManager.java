@@ -279,7 +279,8 @@ public class IOManager {
 		System.out.println("1. Reporte de cantidad de minas por departamento.\n"
 				+ "2. Reporte de cantidad de minas de determinado mineral\n"
 				+ "3. Reporte de cantidad de minas de determinado tipo.\n"
-				+ "4. Salir");
+				+ "4. Reporte de cantidad de minas en Colombia\n"
+				+ "5. Salir");
 		return Integer.parseInt(in.nextLine());
 	}
 	
