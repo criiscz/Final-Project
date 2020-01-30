@@ -1,6 +1,5 @@
 package controllers;
 import exceptions.DepartmentNotFoundException;
-import exceptions.InvalidConstantException;
 import exceptions.MineNotFoundException;
 import exceptions.OptionInvalidException;
 import models.Colombia;
@@ -275,19 +274,11 @@ public class ControllerApp {
 	}
 	
 	private void createReportMinesPerDepartment() {
-		try {
 			view.showReportOne(model.generateReportMinesPerDepartment());
-		} catch (InvalidConstantException e) {
-			view.showError(e.getMessage());
-		}
 	}
 	
 	private void createReportMinesPerOre() {
-		try {
 			view.showReportOne(model.generateReportMinesPerOre());
-		} catch (InvalidConstantException e) {
-			view.showError(e.getMessage());
-		}
 	}
 	
 	private void createReportGainPerDepartment() {
@@ -302,11 +293,7 @@ public class ControllerApp {
 		view.showReportOne(model.generateReportM2perDepartment());
 	}
 	private void createReportMinesInColombia() {
-		try {
 			view.showReportOne(model.generateReportQuantityMinesInColombia());
-		} catch (InvalidConstantException e) {
-			view.showError(e.getMessage());
-		}
 	}
 }
 
