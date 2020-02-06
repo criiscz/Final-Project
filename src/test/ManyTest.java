@@ -10,5 +10,10 @@ class ManyTest {
 	void test() {
 		fail("Not yet implemented");
 	}
+	
+	@Test
+	void test2() {
+		
+	}
 
 }

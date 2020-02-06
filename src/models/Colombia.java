@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jfree.data.category.DefaultCategoryDataset;
-
 import exceptions.DepartmentNotFoundException;
 import exceptions.MineNotFoundException;
 import models.utils.MatrixReport;
@@ -194,17 +192,17 @@ public class Colombia {
 	 * @param dep
 	 * Nombre de departamento al cual se le hara el reporte.
 	 * @return
-	 * Retorna un vector de Objetos con los datos del reporte y el nombre del departamento.
+	 * Retorna un vector de objetos que contiene una matriz con el grafico de barras y las convenciones.
 	 * @throws DepartmentNotFoundException
 	 * La excepcion es lanzada al no encontrar el departamento especificada.
 	 */
 	public Object[] generateReportGainsPerMine(DepartmentName dep) throws DepartmentNotFoundException {
-		DefaultCategoryDataset data = new DefaultCategoryDataset();
+		Map<String,Integer> data = new HashMap<String,Integer>();
 		List<Mine> list = listDepartment[searchDepartment(dep)].getListMine();
 		for (int i = 0; i < list.size(); i++) {
-			data.addValue(list.get(i).getGain(), list.get(i).getName(), "Minas");
+			data.put(list.get(i).getName(),list.get(i).getGain());
 		}
-		return new Object[] { data, dep.getName() };
+		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART, 5000);
 	}
 		
 	/**
@@ -299,16 +297,16 @@ public class Colombia {
 	}
 	
 	/**
-	 * <b>METODO PROVISIONAL</b>Genera reporte de ganancias en JFreeChart.
+	 * Genera reporte de ganancias de cada departamento
 	 * @return
-	 * Retorna los datos para realizar la grafica.
-	 */
-	public DefaultCategoryDataset generateReportGain() {
-		DefaultCategoryDataset data = new DefaultCategoryDataset();
+	 * Retorna un vector de objetos que contiene una matriz con el grafico de barras y las convenciones.
+	 */	
+	public Object[] generateReportGain() {
+		Map<String,Integer> data = new HashMap<String, Integer>();
 		for (int i = 0; i < listDepartment.length; i++) {
-			data.addValue(listDepartment[i].getGain(), listDepartment[i].getName(), "Departamentos");
+			data.put(listDepartment[i].getName(),listDepartment[i].getGain());
 		}
-		return data;
+		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART, 10000);
 	}
 	
 	/**

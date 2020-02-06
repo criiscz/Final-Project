@@ -49,17 +49,21 @@ public class MatrixReport {
 		for (int i = 1; i < valueOfColumns; i++) {
 			int val = defineParOrNot((int)values[i-1], scale);
 			for (int j = 0; j < val; j++) {
-				if((int)values[i-1] % scale != 0 && j + 1 == val)
-					matrix[j+2][test] =String.format("%1$-5s", ("[" + (int)values[i-1]%scale + "]"));
-				else
-					matrix[j+2][test] = String.format("%1$-5s", "[+]");
-				matrix[j+2][0] = " "+counter+"	|";
-				counter+=scale;
+				if((int)values[i-1] > 0) {
+					
+					if((int)values[i-1] % scale != 0 && j + 1 == val)
+						matrix[j+2][test] =String.format("%1$-6s", ("[" + (int)values[i-1]%scale + "]"));
+					else
+						matrix[j+2][test] = String.format("%1$-6s", "[+]");
+					matrix[j+2][0] = " "+counter+"	|";
+					counter+=scale;
+					
+				}
 			}
 			matrix[1][0] = "---------";
-			matrix[1][test-1] = String.format("%1$-5s","----");
-			matrix[1][test] = String.format("%1$-5s","----");
-			matrix[0][test] = String.format("%1$-5s",(" " + num[i-1] + " "));
+			matrix[1][test-1] = String.format("%1$-6s","----");
+			matrix[1][test] = String.format("%1$-6s","----");
+			matrix[0][test] = String.format("%1$-6s",(" " + num[i-1] + " "));
 			counter = scale;
 			test += 2;
 		}
