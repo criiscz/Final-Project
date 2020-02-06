@@ -27,9 +27,9 @@ public class ModelTest {
 			int mine = depart.searchPositionMine(id);
 			assertEquals(0, mine);
 	}
-	@Test
+	@Test(expected=MineNotFoundException.class)
 	public void whenRemoveMine_thenFail() throws MineNotFoundException {
-		assertEquals(MineNotFoundException.class, depart.removeMine(0));
+		assertEquals(MineNotFoundException.class, depart.removeMine(10));
 	}
 	@Test
 	public void whenSearchMineTwo_thenOk() throws MineNotFoundException{
