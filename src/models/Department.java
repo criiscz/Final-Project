@@ -129,10 +129,12 @@ public class Department {
 	 * @throws MineNotFoundException De no ser encontrada la mina por el id
 	 *                               indicado, lanzara la excepcion.
 	 */
-	public void removeMine(int id) throws MineNotFoundException {
+	public Mine removeMine(int id) throws MineNotFoundException {
 		int positionFound = searchPositionMine(id);
 		budgetDepartment += listMine.get(positionFound).getBudgetMine();
+		Mine saveMine = listMine.get(positionFound);
 		listMine.remove(positionFound);
+		return saveMine;
 	}
 
 	/**
