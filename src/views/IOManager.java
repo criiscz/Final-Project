@@ -15,7 +15,10 @@ import models.Department;
 import models.DepartmentName;
 import models.MineType;
 import models.OreType;
-
+/**
+ * Clase encargada de interactuar con el usuario, recibiendo y enviando datos del usuario.
+ * @author Felipe and Cristian
+ */
 public class IOManager {
 	private Scanner in;
 	public static final String SHOW_MENU = "Seleccione una opcion:\n"
@@ -46,20 +49,36 @@ public class IOManager {
 	public static final Object[] TITLES_TABLE = {DEPARTMENT, BUDGET_DEPARTMENT,ID_MINE,MINE_NAME,METERS_MINE, ORE, KILOGRAM_PRICE, MINE_TYPE, BUDGET_MINE};
 	public static final String FORMAT = "%1$-22s %2$-15s | %3$-10s %4$-15s %5$-15s %6$-15s %7$-10s %8$-20s %9$-11s";
 
+	/**
+	 * Constructor que instancia un objeto para recibir datos del usuario.
+	 */
 	public IOManager() {
 		in = new Scanner(System.in);
 	}
 
+	/**
+	 * Imprime por pantalla el menu principal.
+	 * @return
+	 * Retorna la opcion del menu que el usuario desee.
+	 */
 	public int selectOptionMenu() {
 		System.out.println(SHOW_MENU);
 		return Integer.parseInt(in.nextLine());
 	}
-	
+	/**
+	 * Imprime por pantalla el menu de edicion de datos.
+	 * @return
+	 * Retorna la opcion del menu que el usuario desee.
+	 */
 	public int selectOptionMenuEdit() {
 		System.out.println(SHOW_MENU_EDIT);
 		return Integer.parseInt(in.nextLine());
 	}
-	
+	/**
+	 * Recibe el nombre de una mina por parte del usuario.
+	 * @return
+	 * Retorna el nombre de una mina 
+	 */
 	public String readNameMine() {
 		System.out.println("Digite el nombre de la mina: ");
 		return in.nextLine();
@@ -232,7 +251,7 @@ public class IOManager {
 	}
 
 	public int readOptionEconomy() {
-		System.out.println("Que desea hacer?\n"
+		System.out.println("¿Que desea hacer?\n"
 				+ "1. Vender mineral por kilos.\n"
 				+ "2. Comprar insumos.\n"
 				+ "3. Atras.");
@@ -292,7 +311,7 @@ public class IOManager {
 	}
 	
 	public void showReportQuantityMines(Object[] arrayData) {
-		JFreeChart graphic = ChartFactory.createBarChart3D("Cantidad de ganancias de cada mina en " + arrayData[0], "#Minas", "Ganancias($)",(DefaultCategoryDataset) arrayData[0], PlotOrientation.VERTICAL, true, true, false);
+		JFreeChart graphic = ChartFactory.createBarChart3D("Cantidad de ganancias de cada mina en " + arrayData[1], "#Minas", "Ganancias($)",(DefaultCategoryDataset) arrayData[0], PlotOrientation.VERTICAL, true, true, false);
 		ChartPanel control = new ChartPanel(graphic);
 		JFrame  window  = new JFrame ("Reporte De Ganancias Por Mina");
 		window.add(control);
