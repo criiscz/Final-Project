@@ -7,7 +7,10 @@ import models.Department;
 import models.DepartmentName;
 import models.MineType;
 import models.OreType;
-
+/**
+ * Clase encargada de interactuar con el usuario, recibiendo y enviando datos del usuario.
+ * @author Felipe and Cristian
+ */
 public class IOManager {
 	private static final String _1_REPORTE_DE_PRECIO_PROMEDIO_DE_CADA_MINERAL_2_REPORTE_DE_PRECIO_TOTAL_DE_MATERIAL_EXPLOTADO_POR_DEPARTAMENTO_3_ATRAS = "1. Reporte de Precio promedio de cada mineral.\n2. Reporte de Precio total de material explotado por departamento.\n3. Atras.";
 	private static final String _1_REPORTE_DE_EXTENCION_DE_M2_DE_MINAS_POR_DEPARTAMENTO_2_REPORTE_DE_EXTENCION_DE_M2_POR_DEPARTAMENTO_3_ATRAS = "1. Reporte de Extencion de m2 de minas por departamento.\n2. Reporte de Extencion de m2 por departamento.\n3. Atras.";
@@ -58,6 +61,9 @@ public class IOManager {
 			KILOGRAM_PRICE, MINE_TYPE, BUDGET_MINE };
 	public static final String FORMAT = _1$_22S_2$_15S_3$_10S_4$_15S_5$_15S_6$_15S_7$_10S_8$_20S_9$_11S;
 
+	/**
+	 * Constructor que instancia un objeto para recibir datos del usuario.
+	 */
 	public IOManager() {
 		in = new Scanner(System.in);
 	}
@@ -66,16 +72,31 @@ public class IOManager {
 		System.out.println(WELCOME);
 	}
 
+	/**
+	 * Imprime por pantalla el menu principal.
+	 * @return
+	 * Retorna la opcion del menu que el usuario desee.
+	 */
 	public int selectOptionMenu() {
 		System.out.print(SHOW_MENU);
 		return Integer.parseInt(in.nextLine());
 	}
 
+	/**
+	 * Imprime por pantalla el menu de edicion de datos.
+	 * @return
+	 * Retorna la opcion del menu que el usuario desee.
+	 */
 	public int selectOptionMenuEdit() {
 		System.out.println(SHOW_MENU_EDIT);
 		return Integer.parseInt(in.nextLine());
 	}
 
+	/**
+	 * Recibe el nombre de una mina por parte del usuario.
+	 * @return
+	 * Retorna el nombre de una mina 
+	 */
 	public String readNameMine() {
 		System.out.println(DIGITE_EL_NOMBRE_DE_LA_MINA);
 		return in.nextLine();

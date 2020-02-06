@@ -7,10 +7,16 @@ import models.DepartmentName;
 import models.MineType;
 import models.OreType;
 import views.IOManager;
+/**
+ * Clase encargada de ejecutar las opciones deseadas del usuario
+ * @author Felipe and Cristian
+ */
 public class ControllerApp {
 	private IOManager view;
 	private Colombia model;
-	
+	/**
+	 *Constructor de la clase que se encarga de instanciar algunos objetos que necesitamos para poder ejecutar las opciones deseadas por el usuario y asi interactuar con el.
+	 */
 	public ControllerApp() {
 		view = new IOManager();
 		model = new Colombia();
@@ -18,7 +24,9 @@ public class ControllerApp {
 		view.showWelcome();
 		init();
 	}
-	
+	/**
+	 * Metodo encargado de generar el menu principal del proyecto, en el que se muestran las opciones que se ofrecen al usuario.
+	 */
 	public void init() {
 		//		addMine();
 		
@@ -64,11 +72,15 @@ public class ControllerApp {
 		}
 	}
 	
-
+	/**
+	 * Genera una tabla en la cual se muestran diferentes listados de departamentos con sus respectivas minas.
+	 */
 	public void showTable() {
 		view.showTable(model.getListDepartment());
 	}
-	
+	/**
+	 * Permite crear y agregar una mina en el departamento deseado por el usuario.
+	 */
 	public void addMine() {
 		try {
 			model.createMine(view.readDepartment(), view.readNameMine(), view.readMeterMine(), view.readOreType(), view.readKilogram(), view.readMineType(), view.readBudgetMine());
@@ -77,7 +89,9 @@ public class ControllerApp {
 			view.showError(e.getMessage());
 		}
 	}
-	
+	/**
+	 * Permite eliminar una mina del listado de minas de un departamento.
+	 */
 	public void removeMine() {
 		try {
 			model.sendRemoveMine(view.readDepartment(), view.readId());
@@ -86,7 +100,11 @@ public class ControllerApp {
 			view.showError(e.getMessage());
 		}
 	}
-	
+	/**
+	 * Permite editar datos especificos de una mina tales como el precio por Kg del mineral que explota o el tipo de mineral que explota.
+	 * @throws OptionInvalidException
+	 * Excepcion que se presenta cuando el usuario ingresa una opcion que no es valida.
+	 */
 	public void editMine() throws OptionInvalidException {
 		int option = view.selectOptionMenuEdit();
 		switch (option) {
@@ -102,7 +120,9 @@ public class ControllerApp {
 			throw new OptionInvalidException();
 		}
 	}
-	
+	/**
+	 * Permite editar el  valor por Kg del mineral que explota una mina.
+	 */
 	public void editKilogramPrice() {
 		try {
 			model.editKilogramPriceMine(view.readDepartment(), view.readId(), view.readKilogram());
@@ -112,7 +132,9 @@ public class ControllerApp {
 		}
 		
 	}
-	
+	/**
+	 * Permite editar el tipo de mineral que explota una mina.
+	 */
 	public void editOreType() {
 		try {
 			DepartmentName department = view.readDepartment();
@@ -126,7 +148,9 @@ public class ControllerApp {
 			view.showError(e.getMessage());
 		}
 	}
-	
+	/**
+	 * Genera un menu de opciones(comprar o vender ciertos recursos) y ejecuta la que el usuario desee.
+	 */
 	private void realizeEconomy() {
 		try {
 			int option = view.readOptionEconomy();
@@ -146,7 +170,15 @@ public class ControllerApp {
 			realizeEconomy();
 		}
 	}
-	
+	/**
+	 * Realiza la transaccion de vender mineral de una mina.
+	 * @param department
+	 * Departamento donde esta ubicada la mina que desea vender algun mineral.
+	 * @param idMine
+	 * Numero de identificacion de la mina que desea vender algun mineral.
+	 * @param kilos
+	 * Cantidad de Kg del mineral se desea vender.
+	 */
 	private void sellOre( DepartmentName department, int idMine, int kilos) {
 		try {
 			model.sellOre(department, idMine, kilos);
@@ -155,7 +187,15 @@ public class ControllerApp {
 			view.showError(e.getMessage());
 		}
 	}
-	
+	/**
+	 * Realiza la transaccion de comprar insumos para una mina.
+	 * @param department
+	 * Nombre del departamento donde se encuentra la mina con la cual realizar la transaccion.
+	 * @param idMine
+	 * Numero de identificacion de la mina a realizar la transaccion.
+	 * @param mount
+	 * Cantidad monetaria de insumos a comprar.
+	 */
 	private void buyInsume( DepartmentName department, int idMine, int mount ) {
 		try {
 			model.buyInsumes(department, idMine, mount);
@@ -164,7 +204,13 @@ public class ControllerApp {
 			view.showError(e.getMessage());
 		}
 	}
-	
+	/**
+	 *Genera un menu y ejecuta los diferentes tipos de reportes graficos que se ofrecen al usuario.
+	 * @throws OptionInvalidException
+	 * Excepcion que se presenta cuando el usuario ingresa una opcion que no es valida.
+	 * @throws DepartmentNotFoundException
+	 * Excepcion que se presenta cuando cierto departamento no ha sido encontrado o no existe.
+	 */
 	private void selectReports() throws OptionInvalidException, DepartmentNotFoundException {
 		int option = view.showMenuGeneralReports();
 		switch (option) {
@@ -185,8 +231,9 @@ public class ControllerApp {
 		}
 	}
 	/**
-	 * 
+	 * Metodo encargado de ofrecer a traves de un menu y generar los reportes que el usuario desee ver sobre precios.
 	 * @throws OptionInvalidException
+	 * Excepcion que se presenta cuando el usuario ingresa una opcion que no es valida.
 	 */
 	private void selectReportPriceMines() throws OptionInvalidException {
 		int option = view.showMenuPriceMines();
@@ -203,15 +250,27 @@ public class ControllerApp {
 			throw new OptionInvalidException();
 		}
 	}
-	
+	/**
+	 * Genera un  reporte del valor total por kilogramo de todos los minerales en cada departamento.
+	 */
 	private void createReportPricePerDepartment() {
 		view.showReportOne(model.generateReportPricePerDepartment());
 	}
 
+	/**
+	 * Genera reporte del valor del kilogramo de cada mineral.
+	 */
 	private void createReportPriceMines() {
 		view.showReportOne(model.generateReportPricePerKilogram());
 	}
-
+	
+	/**
+	 * Genera un menu con los distintos reportes sobre la cantidad de minas, y ejecuta el que el usuario desee.
+	 * @throws DepartmentNotFoundException
+	 * Excepcion que se presenta cuando cierto departamento no ha sido encontrado o no existe.
+	 * @throws OptionInvalidException
+	 * Excepcion que se presenta cuando el usuario ingresa una opcion que no es valida.
+	 */
 	private void selectTypeReportQuantityMines() throws DepartmentNotFoundException, OptionInvalidException {
 		int option = view.showMenuQuantityMines();
 		switch (option) {
@@ -235,6 +294,13 @@ public class ControllerApp {
 		}
 	}
 
+	/**
+	 * Genera un menu con los distintos reportes sobre las ganancias, y ejecuta el que el usuario desee.
+	 * @throws DepartmentNotFoundException
+	 * Excepcion que se presenta cuando cierto departamento no ha sido encontrado o no existe.
+	 * @throws OptionInvalidException
+	 * Excepcion que se presenta cuando el usuario ingresa una opcion que no es valida.
+	 */
 	private void selectTypeReportGain() throws DepartmentNotFoundException, OptionInvalidException {
 		int option = view.showMenuGains();
 		switch (option) {
@@ -251,6 +317,13 @@ public class ControllerApp {
 		}
 	}
 	
+	/**
+	 * Genera un menu con los distintos reportes sobre la extension de minas, y ejecuta el que el usuario desee.
+	 * @throws DepartmentNotFoundException
+	 * Excepcion que se presenta cuando cierto departamento no ha sido encontrado o no existe.
+	 * @throws OptionInvalidException
+	 * Excepcion que se presenta cuando el usuario ingresa una opcion que no es valida.
+	 */
 	private void selectTypeReportExtention() throws DepartmentNotFoundException, OptionInvalidException {
 		int option = view.showMenuExtention();
 		switch (option) {
@@ -267,44 +340,63 @@ public class ControllerApp {
 		}
 	}
 	
+	/**
+	 * Genera reporte de metros cuadrados explotados por cada mina en un departamento especificado.
+	 * @throws DepartmentNotFoundException
+	 * Excepcion que se presenta cuando cierto departamento no ha sido encontrado o no existe.
+	 */
 	private void createReportExtentionMinePerDepartment() throws DepartmentNotFoundException {
 		view.showReportOne(model.generateReportm2PerDepartment(view.readDepartment()));
 	}
 	
+	/**
+	 * Genera reporte de ganancias que tiene cada mina en un departamento especificado.
+	 * @throws DepartmentNotFoundException
+	 * Excepcion que se presenta cuando cierto departamento no ha sido encontrado o no existe.
+	 */
 	private void createReportGainPerMine() throws DepartmentNotFoundException {
 		view.showReportOne(model.generateReportGainsPerMine(view.readDepartment()));
 	}
 	
+	/**
+	 *Genera reporte de cantidad de minas por  cada departamento.
+	 */
 	private void createReportMinesPerDepartment() {
 			view.showReportOne(model.generateReportMinesPerDepartment());
 	}
 	
+	/**
+	 * Genera reporte de cantidad de minas que explotan cada uno de los minerales.
+	 */
 	private void createReportMinesPerOre() {
 			view.showReportOne(model.generateReportMinesPerOre());
 	}
 	
+	/**
+	 *Genera reporte de ganancias por departamento.
+	 */
 	private void createReportGainPerDepartment() {
 		view.showReportOne(model.generateReportGain());
 	}
 	
+	/**
+	 *Genera reporte de cantidad de minas por su tipo.
+	 */
 	private void createReportTypeMines() {
 		view.showReportOne(model.generateReportQuantityTypeMines());
 	}
 	
+	/**
+	 * Genera reporte de cantidad de metros cuadrados que cada departamento explota en total.
+	 */
 	private void createReportExtention(){
 		view.showReportOne(model.generateReportM2perDepartment());
 	}
+	
+	/**
+	 * Genera reporte de cantidad de minas en total.
+	 */
 	private void createReportMinesInColombia() {
 			view.showReportOne(model.generateReportQuantityMinesInColombia());
 	}
 }
-
-
-
-
-
-
-
-
-
-
