@@ -1,6 +1,6 @@
 package models;
 
-public class Sell extends Transaction{
+public class Sell extends Transaction {
 
 	@Override
 	protected int transaction(int Budget, int mont) {
