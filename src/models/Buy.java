@@ -1,5 +1,10 @@
 package models;
 
+/**
+ * Se encarga de hacer una compra.
+ * @author Criis
+ * @author Felipe
+ */
 public class Buy extends Transaction{
 
 	@Override

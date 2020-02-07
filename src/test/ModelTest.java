@@ -1,4 +1,4 @@
-package test;
+/*package test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -39,5 +39,5 @@ public class ModelTest {
 		System.out.println(depart.getListMine().size());
 		assertEquals("minaDePrueba", depart.searchMine(id).getName());
 	}
-}
+}*/
 

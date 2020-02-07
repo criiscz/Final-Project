@@ -1,5 +1,11 @@
 package models;
 
+/**
+ * Enumerado con los nombres de los departamentos a utilizar
+ * @author Criis
+ * @author Felipe
+ *
+ */
 public enum DepartmentName {
 
 	BOYACA("Boyaca"),
@@ -19,6 +25,11 @@ public enum DepartmentName {
 		this.name = name;
 	}
 	
+	/**
+	 * Retorna el nombre del departamento.
+	 * @return
+	 * Retorna el  almacenado en el enumarado.
+	 */
 	public String getName() {
 		return name;
 	}

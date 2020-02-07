@@ -1,5 +1,11 @@
 package models;
 
+/**
+ * Enumerado que almacena los distintos minerales explotados en el pais.
+ * @author Criis
+ * @author Felipe
+ *
+ */
 public enum OreType {
 	NIQUEL("Niquel"),
 	PETROL("Petroléo"),
@@ -19,6 +25,11 @@ public enum OreType {
 		oreType = name;
 	}
 	
+	/**
+	 * Returns content of the constant.
+	 * @return
+	 * Returns content of the constant.
+	 */
 	public String getOreType() {
 		return oreType;
 	}

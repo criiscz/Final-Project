@@ -38,7 +38,6 @@ public class Mine {
 		this.id = id;
 		this.mineType = mineType;
 		this.budgetMine = budgetMine;
-		autoGenerateEconomy();
 	}
 	/**
 	 * Retorna el nombre de la mina.
@@ -134,7 +133,13 @@ public class Mine {
 		this.mineType = mineType;
 	}
 	
-	
+	/**
+	 * Vende un x kilogramos del mineral que explota la mina.
+	 * @param kilos
+	 * Cantidad de kilogramos a vender.
+	 * @return
+	 * Retorna el valor de la ganancia obtenida con la venta.
+	 */
 	public int sellOre(int kilos) {
 		transaction = new Sell();
 		int finalMount = transaction.transaction(budgetMine, kilos*kilogramPrice);
@@ -144,6 +149,13 @@ public class Mine {
 		return mount;
 	}
 	
+	/**
+	 * Compra insumos para el correcto funcionamiento de la mina.
+	 * @param value
+	 * Valor total de los insumos a comprar.
+	 * @return
+	 * Retorna el dinero gastado del presupuesto de la mina.
+	 */
 	public int buyInsumes(int value) {
 		transaction = new Buy();
 		int finalMount = transaction.transaction(budgetMine, value);
@@ -152,11 +164,12 @@ public class Mine {
 		budgetMine = finalMount;
 		return mount;
 	}
-	
-	public void autoGenerateEconomy() {
-		
-	}
-	
+
+	/**
+	 * Retorna la ganancia de la mina
+	 * @return
+	 * Retorna el valor de la ganancia de la mina.
+	 */
 	public int getGain() {
 		return gain;
 	}
