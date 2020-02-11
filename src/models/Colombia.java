@@ -114,8 +114,28 @@ public class Colombia {
 	public void createMine(DepartmentName department, String nameMine, int meter, OreType oreType, int kilogramPrice,
 			MineType mineType, int budgetMine) throws DepartmentNotFoundException {
 		int position = searchDepartment(department);
+		int id = calculateId(listDepartment[position].getListMine().size());
 		listDepartment[position].addMine(new Mine(nameMine, meter, oreType, kilogramPrice,
-				listDepartment[position].getListMine().size(), mineType, budgetMine));
+				id, mineType, budgetMine));
+	}
+
+	/**
+	 * Verifica que el Id no se repita
+	 * @param id
+	 * El id a validar
+	 * @return
+	 * Retorna el id que no se repite.
+	 */
+	private int calculateId(int id) {
+		for (int i = 0; i < listDepartment.length; i++) {
+			List<Mine> arrayMine = listDepartment[i].getListMine();
+			for (int j = 0; j < arrayMine.size(); j++) {
+				if (arrayMine.get(j).getId() == id) {
+					return calculateId(++id);
+				}
+			}
+		}
+		return id;
 	}
 
 	/**
@@ -246,7 +266,7 @@ public class Colombia {
 		for (int i = 0; i < list.size(); i++) {
 			data.put(list.get(i).getName(), list.get(i).getGain());
 		}
-		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART, 5000);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART);
 	}
 
 	/**
@@ -260,7 +280,7 @@ public class Colombia {
 		for (int i = 0; i < listDepartment.length; i++) {
 			data.put(listDepartment[i].getName(), listDepartment[i].getListMine().size());
 		}
-		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART, 1);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART);
 	}
 
 	/**
@@ -276,7 +296,7 @@ public class Colombia {
 			count += listDepartment[i].getListMine().size();
 		}
 		data.put("Colombia", count);
-		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART, 1);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART);
 	}
 
 	/**
@@ -291,7 +311,7 @@ public class Colombia {
 		for (int i = 0; i < listDepartment.length; i++) {
 			data.put(listDepartment[i].getName(), searchQuantityM2PerDepartment(i));
 		}
-		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART, 200);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART);
 
 	}
 
@@ -325,7 +345,7 @@ public class Colombia {
 			OreType ore = OreType.values()[i];
 			data.put(ore.getOreType(), searchQuantityMines(ore));
 		}
-		return MatrixReport.generateMatrixReport(data, MatrixReport.ORE, 1);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.ORE);
 	}
 
 	/**
@@ -367,7 +387,7 @@ public class Colombia {
 		for (int i = 0; i < listDepartment.length; i++) {
 			data.put(listDepartment[i].getName(), listDepartment[i].getGain());
 		}
-		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART, 10000);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART);
 	}
 
 	/**
@@ -381,7 +401,7 @@ public class Colombia {
 	public Object[] generateReportGain(int counter, Map<String, Integer> data) {
 		data.put(listDepartment[counter].getName(), listDepartment[counter].getGain());
 		if (counter == listDepartment.length - 1)
-			return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART, 10000);
+			return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART);
 		else
 			return generateReportGain(++counter, data);
 	}
@@ -402,7 +422,7 @@ public class Colombia {
 			MineType mine = MineType.values()[i];
 			data.put(mine.getMineType(), searchQuantityTypeMines(mine));
 		}
-		return MatrixReport.generateMatrixReport(data, MatrixReport.TYPE_MINE, 4);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.TYPE_MINE);
 	}
 
 	/**
@@ -417,7 +437,7 @@ public class Colombia {
 		MineType mine = MineType.values()[counter];
 		data.put(mine.getMineType(), searchQuantityTypeMines(mine));
 		if (counter == MineType.values().length - 1)
-			return MatrixReport.generateMatrixReport(data, MatrixReport.TYPE_MINE, 4);
+			return MatrixReport.generateMatrixReport(data, MatrixReport.TYPE_MINE);
 		else
 			return generateReportQuantityTypeMines(data, ++counter);
 	}
@@ -461,7 +481,7 @@ public class Colombia {
 		for (int i = 0; i < mine.size(); i++) {
 			data.put(mine.get(i).getName(), mine.get(i).getMeter());
 		}
-		return MatrixReport.generateMatrixReport(data, MatrixReport.TYPE_MINE, 40);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.TYPE_MINE);
 	}
 
 	/**
@@ -483,7 +503,7 @@ public class Colombia {
 		List<Mine> mine = listDepartment[searchDepartment(department)].getListMine();
 		data.put(mine.get(counter).getName(), mine.get(counter).getMeter());
 		if (counter == mine.size() - 1)
-			return MatrixReport.generateMatrixReport(data, MatrixReport.TYPE_MINE, 40);
+			return MatrixReport.generateMatrixReport(data, MatrixReport.TYPE_MINE);
 		else
 			return generateReportm2PerDepartment(department, ++counter, data);
 	}
@@ -504,7 +524,7 @@ public class Colombia {
 			OreType ore = OreType.values()[i];
 			data.put(ore.getOreType(), searchAveragePrice(ore));
 		}
-		return MatrixReport.generateMatrixReport(data, MatrixReport.ORE, 1000);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.ORE);
 	}
 
 	/**
@@ -520,7 +540,7 @@ public class Colombia {
 		OreType ore = OreType.values()[counter];
 		data.put(ore.getOreType(), searchAveragePrice(ore));
 		if (counter == OreType.values().length - 1)
-			return MatrixReport.generateMatrixReport(data, MatrixReport.ORE, 1000);
+			return MatrixReport.generateMatrixReport(data, MatrixReport.ORE);
 		else
 			return generateReportPricePerKilogram(++counter, data);
 	}
@@ -566,6 +586,6 @@ public class Colombia {
 			}
 			data.put(listDepartment[i].getName(), totalPrice);
 		}
-		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART, 1000);
+		return MatrixReport.generateMatrixReport(data, MatrixReport.DEPART);
 	}
 }
