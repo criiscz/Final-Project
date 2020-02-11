@@ -30,7 +30,7 @@ public class IOManager {
 	private static final String NAME = "Nombre";
 	private static final String FORMAT_CONVENTIONS = "%2$-5s %1$-10s";
 	private static final String CONVENTIONS = "\n\n----------------------------\n	Convenciones\n----------------------------\n";
-	private static final String FORMAT_GRAPHIC_ONE = "%1$-6s";
+	private static final String FORMAT_GRAPHIC_ONE = "%1$-8s";
 	private static final String MESSAGE_ECONOMY = "Que desea hacer?\n1. Vender mineral por kilos.\n2. Comprar insumos.\n3. Atras.";
 	private static final String BUY_INSUMES = "Ingrese el valor total de los insumos a comprar: $";
 	private static final String OPERATION_SUCCESFULL = "Operacion Ejecutada Exitosamente";
@@ -458,6 +458,7 @@ public class IOManager {
 			return readOptionEconomy();
 		}
 	}
+
 	/**
 	 * Imprime por pantalla un reporte grafico.
 	 * @param report
@@ -573,6 +574,7 @@ public class IOManager {
 			return showMenuPriceMines();
 		}
 	}
+
 	/**
 	 * Imprime por pantalla un mensaje cuando se cierra la aplicacion.
 	 */

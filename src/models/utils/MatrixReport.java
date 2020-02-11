@@ -33,7 +33,7 @@ public class MatrixReport {
 	 * @return Retorna un vector de objetos con la grafica y las convenciones de
 	 *         esta.
 	 */
-	public static Object[] generateMatrixReport(Map<String, Integer> map, String option, int scale) {
+	public static Object[] generateMatrixReport(Map<String, Integer> map, String option) {
 		Object[] keys = map.keySet().toArray();
 		Object[] values = map.values().toArray();
 
@@ -45,12 +45,31 @@ public class MatrixReport {
 
 		Object[] nameDepartment = name.keySet().toArray();
 		Object[] num = name.values().toArray();
-
-		String[][] matrix = new String[defineParOrNot(searchMayor(values), scale) + 2][num.length + num.length + 1];
+		int numberMayor = searchMayor(values);
+		int scale = calculateScale(numberMayor);
+		String[][] matrix = new String[defineParOrNot(numberMayor, scale) + 2][num.length + num.length + 1];
 		int counter = scale;
 		return new Object[] { generateGraphic(matrix, values, num, counter, option, scale, num.length + 1),
 				createConventions(nameDepartment, num) };
 
+	}
+	
+	/**
+	 * Genera una escala automatica.
+	 * @param numberMayor
+	 * Numero mas alto con el cual se genera la escala
+	 * @return
+	 * Retorna el valor de la escala a usar en la grafica.
+	 */
+	private static int calculateScale(int numberMayor) {
+		numberMayor /= 25;
+		if(numberMayor >= 0) {
+			if(numberMayor < 1)
+				return 1;
+			else
+				return numberMayor;
+		} else 
+			return 0;
 	}
 
 	/**
@@ -65,7 +84,10 @@ public class MatrixReport {
 			if ((int) i > mayor)
 				mayor = (int) i;
 		}
-		return mayor;
+		if(mayor >= 0)
+			return mayor;
+		else
+			return 0;
 	}
 
 	/**
@@ -103,18 +125,18 @@ public class MatrixReport {
 				if ((int) values[i - 1] > 0) {
 
 					if ((int) values[i - 1] % scale != 0 && j + 1 == val)
-						matrix[j + 2][test] = String.format("%1$-6s", ("[" + (int) values[i - 1] % scale + "]"));
+						matrix[j + 2][test] = String.format("%1$-8s", ("[" + (int) values[i - 1] % scale + "]"));
 					else
-						matrix[j + 2][test] = String.format("%1$-6s", "[+]");
+						matrix[j + 2][test] = String.format("%1$-8s", "[+]");
 					matrix[j + 2][0] = " " + counter + "	|";
 					counter += scale;
 
 				}
 			}
 			matrix[1][0] = "---------";
-			matrix[1][test - 1] = String.format("%1$-6s", "----");
-			matrix[1][test] = String.format("%1$-6s", "----");
-			matrix[0][test] = String.format("%1$-6s", (" " + num[i - 1] + " "));
+			matrix[1][test - 1] = String.format("%1$-8s", "----");
+			matrix[1][test] = String.format("%1$-8s", "----");
+			matrix[0][test] = String.format("%1$-8s", (" " + num[i - 1] + " "));
 			counter = scale;
 			test += 2;
 		}
