@@ -47,7 +47,7 @@ public class IOManager {
 	public static final String WELCOME = "---------------------------------\n" + "|Bienvenido a tu gestor de minas|\n"
 			+ "---------------------------------";
 	public static final String SHOW_MENU = "Seleccione una opcion:\n" + "______________________\n" + "1. Ver tabla\n"
-			+ "______________________\n" + "2. Agregar mina\n" + "______________________\n" + "3. Remover mine\n"
+			+ "______________________\n" + "2. Agregar mina\n" + "______________________\n" + "3. Remover mina\n"
 			+ "______________________\n" + "4. Editar Mina\n" + "______________________\n" + "5. Economia de Mina\n"
 			+ "______________________\n" + "6. Reportes\n" + "______________________\n" + "7. Salir\n"
 			+ "______________________\n" + "Opcion: ";
@@ -78,7 +78,9 @@ public class IOManager {
 	public IOManager() {
 		in = new Scanner(System.in);
 	}
-
+	/**
+	 * Imprime por pantalla un mensaje de Bienvenida.
+	 */
 	public void showWelcome() {
 		System.out.println(WELCOME);
 	}
@@ -129,7 +131,11 @@ public class IOManager {
 		System.out.println(DIGIT_MINE_NAME);
 		return in.nextLine();
 	}
-
+	/**
+	 * Recibe la cantidad de M2 de una mina.
+	 * @return
+	 * Cantidad de M2 de una mina.
+	 */
 	public int readMeterMine() {
 		System.out.println(DIGIT_SQUARE_METERS);
 		String text = in.nextLine();
@@ -142,7 +148,11 @@ public class IOManager {
 			return readMeterMine();
 		}
 	}
-
+	/**
+	 *Recibe el tipo  de recurso que explota una mina. 
+	 * @return
+	 * Tipo de recurso que explota una mina.
+	 */
 	public OreType readOreType() {
 		System.out.println(CHOOSE_TYPE_MINERAL);
 		for (int i = 0; i < OreType.values().length; i++) {
@@ -157,7 +167,15 @@ public class IOManager {
 		}
 
 	}
-
+	/**
+	 * Selecciona el tipo de mineral que explota una mina.
+	 * @param option
+	 * Opcion que el usuario eligio.
+	 * @return
+	 * Tipo de mineral que explota una mina correspondiente a la opcion que eligio usuario.
+	 * @throws OptionInvalidException
+	 * Excepcion que se presenta cuando el usuario ingresa una opcion que no es valida.
+	 */
 	public OreType selectOreType(int option) throws OptionInvalidException {
 		switch (option) {
 		case 1:
@@ -188,7 +206,11 @@ public class IOManager {
 			throw new OptionInvalidException();
 		}
 	}
-
+	/**
+	 * Recibe el precio por Kg de un producto.
+	 * @return
+	 * Precio por Kg de un producto.
+	 */
 	public int readKilogram() {
 		System.out.println(DIGIT_KILOGRAM_PRICE);
 		String text = in.nextLine();
@@ -201,7 +223,11 @@ public class IOManager {
 			return readKilogram();
 		}
 	}
-
+	/**
+	 * Recibe la cantidad de Kg de una transaccion.
+	 * @return
+	 * Cantidad de Kg de una transaccion.
+	 */
 	public int readQuantityKilogram() {
 		System.out.println(DIGIT_QUANTITY_KILOGRAM);
 		String text = in.nextLine();
@@ -214,7 +240,11 @@ public class IOManager {
 			return readQuantityKilogram();
 		}
 	}
-
+	/**
+	 *Recibe el numero de identificacion de una mina. 
+	 * @return
+	 * Numero de identificacion de una mina.
+	 */
 	public int readId() {
 		System.out.println(DIGIT_MINE_ID);
 		String text = in.nextLine();
@@ -227,7 +257,11 @@ public class IOManager {
 			return readId();
 		}
 	}
-
+	/**
+	 * Recibe un tipo de mina(subterranea/al aire libre).
+	 * @return
+	 * Tipo de mina (subterranea/al aire libre).
+	 */
 	public MineType readMineType() {
 		System.out.println(DIGIT_MINE_TYPE);
 		for (int i = 0; i < MineType.values().length; i++) {
@@ -242,7 +276,15 @@ public class IOManager {
 			return readMineType();
 		}
 	}
-
+	/**
+	 * Selecciona el tipo de mina a partir de la opcion ingresada por el usuario.
+	 * @param option
+	 * Opcion ingresada por el usuario.
+	 * @return
+	 * Tipo de mina(subterranea/al aire libre)..
+	 * @throws OptionInvalidException
+	 * Excepcion que se presenta cuando el usuario ingresa una opcion que no es valida.
+	 */
 	public MineType selectMineType(int option) throws OptionInvalidException {
 		switch (option) {
 		case 1:
@@ -253,7 +295,11 @@ public class IOManager {
 			throw new OptionInvalidException();
 		}
 	}
-
+	/**
+	 * Recibe el presupuesto de una mina.
+	 * @return
+	 * Presupuesto de una mina.
+	 */
 	public int readBudgetMine() {
 		System.out.println(SELECT_BUDGET);
 		String text = in.nextLine();
@@ -266,7 +312,11 @@ public class IOManager {
 			return readBudgetMine();
 		}
 	}
-
+	/**
+	 *Permite que el usuario seleccione el departamento que desee.
+	 * @return
+	 * Departamento seleccionado por el usuario.
+	 */
 	public DepartmentName readDepartment() {
 		System.out.println(SELECT_DEPARTMENT);
 		for (int i = 0; i < DepartmentName.values().length; i++) {
@@ -279,7 +329,15 @@ public class IOManager {
 			return readDepartment();
 		}
 	}
-
+	/**
+	 * Selecciona el departamento a partir de la opcion ingresada por el usuario.
+	 * @param option
+	 * Opcion ingresada por el usuario.
+	 * @return
+	 * Nombre del departamento seleccionado.
+	 * @throws OptionInvalidException
+	 * Excepcion que se presenta cuando el usuario ingresa una opcion que no es valida.
+	 */
 	public DepartmentName selectDepartment(int option) throws OptionInvalidException {
 		switch (option) {
 		case 1:
@@ -306,22 +364,35 @@ public class IOManager {
 			throw new OptionInvalidException();
 		}
 	}
-
+	/**
+	 * Imprime por pantalla cuando una mina es agregada.
+	 */
 	public void showConfirmationAdd() {
 		System.out.println(MINE_SUCCESFULL);
 	}
-
+	/**
+	 * Imprime por pantalla un mensaje cuando se presenta un error.
+	 * @param error
+	 * Mensaje de error que se desea imprimir.
+	 */
 	public void showError(String error) {
 		System.err.println(error);
 	}
 
+	/**
+	 * Genera los titulos de la tabla de datos.
+	 */
 	public void generateTitles() {
 		System.out.println(SEPARATOR);
 		System.out.println(String.format(FORMAT, TITLES_TABLE));
 		System.out.println(SEPARATOR);
 		System.out.println(SEPARATOR);
 	}
-
+	/**
+	 * Imprime por pantalla la tabla de datos.
+	 * @param listDepartment
+	 * Listado de departamentos para generar la tabla con los datos de cada uno.
+	 */
 	public void showTable(Department[] listDepartment) {
 		generateTitles();
 		for (Department department : listDepartment) {
@@ -331,11 +402,17 @@ public class IOManager {
 			}
 		}
 	}
-
+	/**
+	 * Imprime por pantalla cuando una operacion es completada.
+	 */
 	public void showSucesfull() {
 		System.out.println(OPERATION_SUCCESFULL);
 	}
-
+	/**
+	 * Recibe la cantidad de insumos de una transaccion.
+	 * @return
+	 * Cantidad de insumos de una transaccion.
+	 */
 	public int readMount() {
 		System.out.print(BUY_INSUMES);
 		String text = in.nextLine();
@@ -348,7 +425,11 @@ public class IOManager {
 			return readMount();
 		}
 	}
-
+	/**
+	 * Imprime un menu de opciones de venta y compra.
+	 * @return
+	 * Opcion ingresada por el usuario.
+	 */
 	public int readOptionEconomy() {
 		System.out.println(MESSAGE_ECONOMY);
 		String text = in.nextLine();
@@ -362,6 +443,13 @@ public class IOManager {
 		}
 	}
 
+	/**
+	 * Imprime por pantalla un reporte grafico.
+	 * @param report
+	 * Contiene datos y convenciones de una grafica.
+	 * @param ejeY
+	 * Encabezado del eje Y de la grafica.
+	 */
 	public void showReportOne(Object[] report, String ejeY) {
 		String[][] data = (String[][]) report[0];
 		String[][] convention = (String[][]) report[1];
@@ -384,7 +472,11 @@ public class IOManager {
 			System.out.println(SEPARATOR_SHORT);
 		}
 	}
-
+	/**
+	 * Imprime un menu con diferentes reportes.
+	 * @return
+	 * Opcion ingresada por el usuario para ver cierto reporte.
+	 */
 	public int showMenuGeneralReports() {
 		System.out.println(MENU_REPORTS);
 		String text = in.nextLine();
@@ -397,7 +489,11 @@ public class IOManager {
 			return showMenuGeneralReports();
 		}
 	}
-
+	/**
+	 * Imprime un menu de opciones de reportes de cantidades.
+	 * @return
+	 * Opcion ingresada por el usuario para ver un reporte de cantidades.
+	 */
 	public int showMenuQuantityMines() {
 		System.out.println(MENU_REPORT_QUANTITY);
 		String text = in.nextLine();
@@ -411,6 +507,11 @@ public class IOManager {
 		}
 	}
 
+	/**
+	 * Imprime un menu de opciones de reportes de ganancias.
+	 * @return
+	 * Opcion ingresada por el usuario para ver un reporte de ganancias.
+	 */
 	public int showMenuGains() {
 		System.out.println(MENU_REPORT_GAINS);
 		String text = in.nextLine();
@@ -423,7 +524,11 @@ public class IOManager {
 			return showMenuGains();
 		}
 	}
-
+	/**
+	 * Imprime un menu de opciones de reportes de extencion de minas. 
+	 * @return
+	 * Opcion ingresada por el usuario para ver un reporte de extencion de minas.
+	 */
 	public int showMenuExtention() {
 		System.out.println(MENU_REPORT_EXTENTION);
 		String text = in.nextLine();
@@ -436,7 +541,11 @@ public class IOManager {
 			return showMenuExtention();
 		}
 	}
-
+	/**
+	 * Imprime un menu de opciones de reportes de precios de ciertos materiales. 
+	 * @return
+	 * Opcion ingresada por el usuario para ver un reporte de precios de ciertos materiales. 
+	 */
 	public int showMenuPriceMines() {
 		System.out.println(MENU_REPORT_PRICE);
 		String text = in.nextLine();
@@ -450,6 +559,9 @@ public class IOManager {
 		}
 	}
 
+	/**
+	 * Imprime por pantalla un mensaje cuando se cierra la aplicacion.
+	 */
 	public void showExitMessage() {
 		System.err.println("Good Bye");
 	}
