@@ -1,42 +1,48 @@
 package views;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import exceptions.OptionInvalidException;
 import models.Department;
 import models.DepartmentName;
 import models.MineType;
 import models.OreType;
+
 /**
- * Clase encargada de interactuar con el usuario, recibiendo y enviando datos del usuario.
+ * Clase encargada de interactuar con el usuario, recibiendo y enviando datos
+ * del usuario.
+ * 
  * @author Felipe and Cristian
  */
 public class IOManager {
-	private static final String _1_REPORTE_DE_PRECIO_PROMEDIO_DE_CADA_MINERAL_2_REPORTE_DE_PRECIO_TOTAL_DE_MATERIAL_EXPLOTADO_POR_DEPARTAMENTO_3_ATRAS = "1. Reporte de Precio promedio de cada mineral.\n2. Reporte de Precio total de material explotado por departamento.\n3. Atras.";
-	private static final String _1_REPORTE_DE_EXTENCION_DE_M2_DE_MINAS_POR_DEPARTAMENTO_2_REPORTE_DE_EXTENCION_DE_M2_POR_DEPARTAMENTO_3_ATRAS = "1. Reporte de Extencion de m2 de minas por departamento.\n2. Reporte de Extencion de m2 por departamento.\n3. Atras.";
-	private static final String _1_REPORTE_DE_GANANCIAS_DE_MINAS_POR_DEPARTAMENTO_2_REPORTE_DE_GANANCIAS_POR_DEPARTAMENTO_3_ATRAS = "1. Reporte de ganancias de minas por departamento.\n2. Reporte de ganancias por departamento.\n3. Atras.";
-	private static final String _1_REPORTE_DE_CANTIDAD_DE_MINAS_POR_DEPARTAMENTO_2_REPORTE_DE_CANTIDAD_DE_MINAS_DE_DETERMINADO_MINERAL_3_REPORTE_DE_CANTIDAD_DE_MINAS_DE_DETERMINADO_TIPO_4_REPORTE_DE_CANTIDAD_DE_MINAS_EN_COLOMBIA_5_SALIR = "1. Reporte de cantidad de minas por departamento.\n2. Reporte de cantidad de minas de determinado mineral\n3. Reporte de cantidad de minas de determinado tipo.\n4. Reporte de cantidad de minas en Colombia\n5. Salir";
-	private static final String _1_REPORTE_DE_CANTIDAD_DE_MINAS_2_REPORTE_DE_GANANCIAS_3_REPORTE_DE_EXTENSION_4_REPORTE_DE_PRECIO_5_ATRAS = "1. Reporte de cantidad de minas.\n2. Reporte de Ganancias.\n3. Reporte de Extension.\n4. Reporte de Precio.\n5. Atras.";
-	private static final String STRING = "----------------------------";
+	private static final String INVALID_OPTION = "\nOpcion Invalida\n";
+	private static final String DIGIT_QUANTITY_KILOGRAM = "Digite la cantidad de kilogramos: ";
+	private static final String MENU_REPORT_PRICE = "1. Reporte de Precio promedio de cada mineral.\n2. Reporte de Precio total de material explotado por departamento.\n3. Atras.";
+	private static final String MENU_REPORT_EXTENTION = "1. Reporte de Extencion de m2 de minas por departamento.\n2. Reporte de Extencion de m2 por departamento.\n3. Atras.";
+	private static final String MENU_REPORT_GAINS = "1. Reporte de ganancias de minas por departamento.\n2. Reporte de ganancias por departamento.\n3. Atras.";
+	private static final String MENU_REPORT_QUANTITY = "1. Reporte de cantidad de minas por departamento.\n2. Reporte de cantidad de minas de determinado mineral\n3. Reporte de cantidad de minas de determinado tipo.\n4. Reporte de cantidad de minas en Colombia\n5. Salir";
+	private static final String MENU_REPORTS = "1. Reporte de cantidad de minas.\n2. Reporte de Ganancias.\n3. Reporte de Extension.\n4. Reporte de Precio.\n5. Atras.";
+	private static final String SEPARATOR_SHORT = "----------------------------";
 	private static final String NUM = "Num";
-	private static final String NOMBRE = "Nombre";
-	private static final String _2$_5S_1$_10S = "%2$-5s %1$-10s";
-	private static final String CONVENCIONES = "\n\n----------------------------\n	Convenciones\n----------------------------\n";
-	private static final String _1$_6S = "%1$-6s";
-	private static final String ERROR = "Error";
-	private static final String QUE_DESEA_HACER_1_VENDER_MINERAL_POR_KILOS_2_COMPRAR_INSUMOS_3_ATRAS = "Que desea hacer?\n1. Vender mineral por kilos.\n2. Comprar insumos.\n3. Atras.";
-	private static final String INGRESE_EL_VALOR_TOTAL_DE_LOS_INSUMOS_A_COMPRAR_$ = "Ingrese el valor total de los insumos a comprar: $";
-	private static final String OPERACION_EJECUTADA_EXITOSAMENTE = "Operacion Ejecutada Exitosamente";
-	private static final String _1$_22S_2$_15S_3$_10S_4$_15S_5$_15S_6$_15S_7$_10S_8$_20S_9$_11S = "%1$-22s %2$-15s | %3$-10s %4$-15s %5$-15s %6$-15s %7$-10s %8$-20s %9$-11s";
-	private static final String SELECCION_EL_DEPARTAMENTO = "Seleccion el departamento: ";
-	private static final String DIGITE_EL_PRESUPUESTO_DESTINADO_A_LA_MINA = "Digite el presupuesto destinado a la mina.";
-	private static final String LA_MINA_SE_AGREGO_EXITOSAMENTE = "La mina se agrego exitosamente";
-	private static final String INGRESE_UN_TIPO_DE_MINA = "Ingrese un tipo de mina: ";
-	private static final String DIGITE_EL_NUMERO_DE_INDENTIFICACION_DE_LA_MINA = "Digite el numero de indentificacion de la mina: ";
-	private static final String DIGITE_EL_PRECIO_POR_KILOGRAMO_DE_ESTE_PRODUCTO = "Digite el precio por kilogramo de este producto:";
-	private static final String ELIJA_EL_TIPO_DE_MINERAL = "Elija el tipo de mineral: ";
-	private static final String DIGITE_EL_NUMERO_DE_METROS_CUADRADOS_DE_LA_MINA = "Digite el numero de metros cuadrados de la mina: ";
-	private static final String DIGITE_EL_NOMBRE_DE_LA_MINA = "Digite el nombre de la mina: ";
+	private static final String NAME = "Nombre";
+	private static final String FORMAT_CONVENTIONS = "%2$-5s %1$-10s";
+	private static final String CONVENTIONS = "\n\n----------------------------\n	Convenciones\n----------------------------\n";
+	private static final String FORMAT_GRAPHIC_ONE = "%1$-6s";
+	private static final String MESSAGE_ECONOMY = "Que desea hacer?\n1. Vender mineral por kilos.\n2. Comprar insumos.\n3. Atras.";
+	private static final String BUY_INSUMES = "Ingrese el valor total de los insumos a comprar: $";
+	private static final String OPERATION_SUCCESFULL = "Operacion Ejecutada Exitosamente";
+	private static final String TABLE_FORMAT = "%1$-22s %2$-15s | %3$-10s %4$-15s %5$-15s %6$-15s %7$-10s %8$-20s %9$-11s";
+	private static final String SELECT_DEPARTMENT = "Seleccion el departamento: ";
+	private static final String SELECT_BUDGET = "Digite el presupuesto destinado a la mina.";
+	private static final String MINE_SUCCESFULL = "La mina se agrego exitosamente";
+	private static final String DIGIT_MINE_TYPE = "Ingrese un tipo de mina: ";
+	private static final String DIGIT_MINE_ID = "Digite el numero de indentificacion de la mina: ";
+	private static final String DIGIT_KILOGRAM_PRICE = "Digite el precio por kilogramo de este producto:";
+	private static final String CHOOSE_TYPE_MINERAL = "Elija el tipo de mineral: ";
+	private static final String DIGIT_SQUARE_METERS = "Digite el numero de metros cuadrados de la mina: ";
+	private static final String DIGIT_MINE_NAME = "Digite el nombre de la mina: ";
 	private Scanner in;
 	public static final String WELCOME = "---------------------------------\n" + "|Bienvenido a tu gestor de minas|\n"
 			+ "---------------------------------";
@@ -59,7 +65,12 @@ public class IOManager {
 	private static final String BUDGET_MINE = "Presupuesto Mina";
 	private static final Object[] TITLES_TABLE = { DEPARTMENT, BUDGET_DEPARTMENT, ID_MINE, MINE_NAME, METERS_MINE, ORE,
 			KILOGRAM_PRICE, MINE_TYPE, BUDGET_MINE };
-	public static final String FORMAT = _1$_22S_2$_15S_3$_10S_4$_15S_5$_15S_6$_15S_7$_10S_8$_20S_9$_11S;
+	public static final String FORMAT = TABLE_FORMAT;
+
+	public static final String M2_GRAPHIC = "(m2)    |";
+	public static final String NO_MINAS_GRAPHIC = "N° Minas|";
+	public static final String GAINS_GRAPHIC = "Gains($)|";
+	public static final String PRICE_GRAPHIC = "Price($)|";
 
 	/**
 	 * Constructor que instancia un objeto para recibir datos del usuario.
@@ -74,41 +85,66 @@ public class IOManager {
 
 	/**
 	 * Imprime por pantalla el menu principal.
-	 * @return
-	 * Retorna la opcion del menu que el usuario desee.
+	 * 
+	 * @return Retorna la opcion del menu que el usuario desee.
 	 */
 	public int selectOptionMenu() {
 		System.out.print(SHOW_MENU);
-		return Integer.parseInt(in.nextLine());
+		String text = in.nextLine();
+		Pattern pat = Pattern.compile("\\d*");
+		Matcher mat = pat.matcher(text);
+		if (mat.matches())
+			return Integer.parseInt(text);
+		else {
+			System.err.println(INVALID_OPTION);
+			return selectOptionMenu();
+		}
+
 	}
 
 	/**
 	 * Imprime por pantalla el menu de edicion de datos.
-	 * @return
-	 * Retorna la opcion del menu que el usuario desee.
+	 * 
+	 * @return Retorna la opcion del menu que el usuario desee.
 	 */
 	public int selectOptionMenuEdit() {
 		System.out.println(SHOW_MENU_EDIT);
-		return Integer.parseInt(in.nextLine());
+		String text = in.nextLine();
+		Pattern pat = Pattern.compile("\\d*");
+		Matcher mat = pat.matcher(text);
+		if (mat.matches())
+			return Integer.parseInt(text);
+		else {
+			System.err.println(INVALID_OPTION);
+			return selectOptionMenuEdit();
+		}
 	}
 
 	/**
 	 * Recibe el nombre de una mina por parte del usuario.
-	 * @return
-	 * Retorna el nombre de una mina 
+	 * 
+	 * @return Retorna el nombre de una mina
 	 */
 	public String readNameMine() {
-		System.out.println(DIGITE_EL_NOMBRE_DE_LA_MINA);
+		System.out.println(DIGIT_MINE_NAME);
 		return in.nextLine();
 	}
 
 	public int readMeterMine() {
-		System.out.println(DIGITE_EL_NUMERO_DE_METROS_CUADRADOS_DE_LA_MINA);
-		return Integer.parseInt(in.nextLine());
+		System.out.println(DIGIT_SQUARE_METERS);
+		String text = in.nextLine();
+		Pattern pat = Pattern.compile("\\d*");
+		Matcher mat = pat.matcher(text);
+		if (mat.matches())
+			return Integer.parseInt(text);
+		else {
+			System.err.println(INVALID_OPTION);
+			return readMeterMine();
+		}
 	}
 
 	public OreType readOreType() {
-		System.out.println(ELIJA_EL_TIPO_DE_MINERAL);
+		System.out.println(CHOOSE_TYPE_MINERAL);
 		for (int i = 0; i < OreType.values().length; i++) {
 			System.out.println(1 + i + " " + OreType.values()[i].getOreType());
 		}
@@ -154,17 +190,46 @@ public class IOManager {
 	}
 
 	public int readKilogram() {
-		System.out.println(DIGITE_EL_PRECIO_POR_KILOGRAMO_DE_ESTE_PRODUCTO);
-		return Integer.parseInt(in.nextLine());
+		System.out.println(DIGIT_KILOGRAM_PRICE);
+		String text = in.nextLine();
+		Pattern pat = Pattern.compile("\\d*");
+		Matcher mat = pat.matcher(text);
+		if (mat.matches())
+			return Integer.parseInt(text);
+		else {
+			System.err.println(INVALID_OPTION);
+			return readKilogram();
+		}
+	}
+
+	public int readQuantityKilogram() {
+		System.out.println(DIGIT_QUANTITY_KILOGRAM);
+		String text = in.nextLine();
+		Pattern pat = Pattern.compile("\\d*");
+		Matcher mat = pat.matcher(text);
+		if (mat.matches())
+			return Integer.parseInt(text);
+		else {
+			System.err.println(INVALID_OPTION);
+			return readQuantityKilogram();
+		}
 	}
 
 	public int readId() {
-		System.out.println(DIGITE_EL_NUMERO_DE_INDENTIFICACION_DE_LA_MINA);
-		return Integer.parseInt(in.nextLine());
+		System.out.println(DIGIT_MINE_ID);
+		String text = in.nextLine();
+		Pattern pat = Pattern.compile("\\d*");
+		Matcher mat = pat.matcher(text);
+		if (mat.matches())
+			return Integer.parseInt(text);
+		else {
+			System.err.println(INVALID_OPTION);
+			return readId();
+		}
 	}
 
 	public MineType readMineType() {
-		System.out.println(INGRESE_UN_TIPO_DE_MINA);
+		System.out.println(DIGIT_MINE_TYPE);
 		for (int i = 0; i < MineType.values().length; i++) {
 			System.out.println(i + 1 + " " + MineType.values()[i].getMineType());
 		}
@@ -173,7 +238,7 @@ public class IOManager {
 			int option = Integer.parseInt(in.nextLine());
 			return selectMineType(option);
 		} catch (OptionInvalidException | NumberFormatException e) {
-			System.out.println(ERROR);
+			System.err.println(e.getMessage());
 			return readMineType();
 		}
 	}
@@ -190,12 +255,20 @@ public class IOManager {
 	}
 
 	public int readBudgetMine() {
-		System.out.println(DIGITE_EL_PRESUPUESTO_DESTINADO_A_LA_MINA);
-		return Integer.parseInt(in.nextLine());
+		System.out.println(SELECT_BUDGET);
+		String text = in.nextLine();
+		Pattern pat = Pattern.compile("\\d*");
+		Matcher mat = pat.matcher(text);
+		if (mat.matches())
+			return Integer.parseInt(text);
+		else {
+			System.err.println(INVALID_OPTION);
+			return readBudgetMine();
+		}
 	}
 
 	public DepartmentName readDepartment() {
-		System.out.println(SELECCION_EL_DEPARTAMENTO);
+		System.out.println(SELECT_DEPARTMENT);
 		for (int i = 0; i < DepartmentName.values().length; i++) {
 			System.out.println(i + 1 + "  " + DepartmentName.values()[i].getName());
 		}
@@ -235,7 +308,7 @@ public class IOManager {
 	}
 
 	public void showConfirmationAdd() {
-		System.out.println(LA_MINA_SE_AGREGO_EXITOSAMENTE);
+		System.out.println(MINE_SUCCESFULL);
 	}
 
 	public void showError(String error) {
@@ -253,75 +326,131 @@ public class IOManager {
 		generateTitles();
 		for (Department department : listDepartment) {
 			for (int i = 0; i < department.toObjectMatrix().length; i++) {
-				System.out.println(String.format(_1$_22S_2$_15S_3$_10S_4$_15S_5$_15S_6$_15S_7$_10S_8$_20S_9$_11S,
-						department.toObjectMatrix()[i]));
+				System.out.println(String.format(TABLE_FORMAT, department.toObjectMatrix()[i]));
 				System.out.println(SEPARATOR);
 			}
 		}
 	}
 
 	public void showSucesfull() {
-		System.out.println(OPERACION_EJECUTADA_EXITOSAMENTE);
+		System.out.println(OPERATION_SUCCESFULL);
 	}
 
 	public int readMount() {
-		System.out.print(INGRESE_EL_VALOR_TOTAL_DE_LOS_INSUMOS_A_COMPRAR_$);
-		return Integer.parseInt(in.nextLine());
+		System.out.print(BUY_INSUMES);
+		String text = in.nextLine();
+		Pattern pat = Pattern.compile("\\d*");
+		Matcher mat = pat.matcher(text);
+		if (mat.matches())
+			return Integer.parseInt(text);
+		else {
+			System.err.println(INVALID_OPTION);
+			return readMount();
+		}
 	}
 
 	public int readOptionEconomy() {
-		System.out.println(QUE_DESEA_HACER_1_VENDER_MINERAL_POR_KILOS_2_COMPRAR_INSUMOS_3_ATRAS);
-		return Integer.parseInt(in.nextLine());
+		System.out.println(MESSAGE_ECONOMY);
+		String text = in.nextLine();
+		Pattern pat = Pattern.compile("\\d*");
+		Matcher mat = pat.matcher(text);
+		if (mat.matches())
+			return Integer.parseInt(text);
+		else {
+			System.err.println(INVALID_OPTION);
+			return readOptionEconomy();
+		}
 	}
 
-	public void showReportOne(Object[] report) {
+	public void showReportOne(Object[] report, String ejeY) {
 		String[][] data = (String[][]) report[0];
 		String[][] convention = (String[][]) report[1];
-		System.out.println("N° Minas|");
+		System.out.println(ejeY);
 		for (int i = data.length - 1; i >= 0; i--) {
 			for (int j = 0; j < data[i].length; j++) {
 				if (data[i][j] == null)
-					System.out.printf(_1$_6S, " . ");
+					System.out.printf(FORMAT_GRAPHIC_ONE, " . ");
 				else
 					System.out.print(data[i][j]);
 			}
 			System.out.println("");
 		}
-		System.out.println(CONVENCIONES);
-		System.out.println(String.format(_2$_5S_1$_10S, NOMBRE, NUM));
-		System.out.println(STRING);
+		System.out.println(CONVENTIONS);
+		System.out.println(String.format(FORMAT_CONVENTIONS, NAME, NUM));
+		System.out.println(SEPARATOR_SHORT);
 
 		for (int i = 0; i < convention.length; i++) {
-			System.out.println(String.format(_2$_5S_1$_10S, (Object[]) convention[i]));
-			System.out.println(STRING);
+			System.out.println(String.format(FORMAT_CONVENTIONS, (Object[]) convention[i]));
+			System.out.println(SEPARATOR_SHORT);
 		}
 	}
 
 	public int showMenuGeneralReports() {
-		System.out.println(
-				_1_REPORTE_DE_CANTIDAD_DE_MINAS_2_REPORTE_DE_GANANCIAS_3_REPORTE_DE_EXTENSION_4_REPORTE_DE_PRECIO_5_ATRAS);
-		return Integer.parseInt(in.nextLine());
+		System.out.println(MENU_REPORTS);
+		String text = in.nextLine();
+		Pattern pat = Pattern.compile("\\d*");
+		Matcher mat = pat.matcher(text);
+		if (mat.matches())
+			return Integer.parseInt(text);
+		else {
+			System.err.println(INVALID_OPTION);
+			return showMenuGeneralReports();
+		}
 	}
 
 	public int showMenuQuantityMines() {
-		System.out.println(
-				_1_REPORTE_DE_CANTIDAD_DE_MINAS_POR_DEPARTAMENTO_2_REPORTE_DE_CANTIDAD_DE_MINAS_DE_DETERMINADO_MINERAL_3_REPORTE_DE_CANTIDAD_DE_MINAS_DE_DETERMINADO_TIPO_4_REPORTE_DE_CANTIDAD_DE_MINAS_EN_COLOMBIA_5_SALIR);
-		return Integer.parseInt(in.nextLine());
+		System.out.println(MENU_REPORT_QUANTITY);
+		String text = in.nextLine();
+		Pattern pat = Pattern.compile("\\d*");
+		Matcher mat = pat.matcher(text);
+		if (mat.matches())
+			return Integer.parseInt(text);
+		else {
+			System.err.println(INVALID_OPTION);
+			return showMenuQuantityMines();
+		}
 	}
 
 	public int showMenuGains() {
-		System.out.println(_1_REPORTE_DE_GANANCIAS_DE_MINAS_POR_DEPARTAMENTO_2_REPORTE_DE_GANANCIAS_POR_DEPARTAMENTO_3_ATRAS);
-		return Integer.parseInt(in.nextLine());
+		System.out.println(MENU_REPORT_GAINS);
+		String text = in.nextLine();
+		Pattern pat = Pattern.compile("\\d*");
+		Matcher mat = pat.matcher(text);
+		if (mat.matches())
+			return Integer.parseInt(text);
+		else {
+			System.err.println(INVALID_OPTION);
+			return showMenuGains();
+		}
 	}
 
 	public int showMenuExtention() {
-		System.out.println(_1_REPORTE_DE_EXTENCION_DE_M2_DE_MINAS_POR_DEPARTAMENTO_2_REPORTE_DE_EXTENCION_DE_M2_POR_DEPARTAMENTO_3_ATRAS);
-		return Integer.parseInt(in.nextLine());
+		System.out.println(MENU_REPORT_EXTENTION);
+		String text = in.nextLine();
+		Pattern pat = Pattern.compile("\\d*");
+		Matcher mat = pat.matcher(text);
+		if (mat.matches())
+			return Integer.parseInt(text);
+		else {
+			System.err.println(INVALID_OPTION);
+			return showMenuExtention();
+		}
 	}
 
 	public int showMenuPriceMines() {
-		System.out.println(_1_REPORTE_DE_PRECIO_PROMEDIO_DE_CADA_MINERAL_2_REPORTE_DE_PRECIO_TOTAL_DE_MATERIAL_EXPLOTADO_POR_DEPARTAMENTO_3_ATRAS);
-		return Integer.parseInt(in.nextLine());
+		System.out.println(MENU_REPORT_PRICE);
+		String text = in.nextLine();
+		Pattern pat = Pattern.compile("\\d*");
+		Matcher mat = pat.matcher(text);
+		if (mat.matches())
+			return Integer.parseInt(text);
+		else {
+			System.err.println(INVALID_OPTION);
+			return showMenuPriceMines();
+		}
 	}
 
+	public void showExitMessage() {
+		System.err.println("Good Bye");
+	}
 }
