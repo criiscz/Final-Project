@@ -77,6 +77,8 @@ public class RandomizeGenerator {
 	public static OreType generateRandomOreType() {
 		return oreTypes[r.nextInt(oreTypes.length - 1)];
 	}
+	
+	
 	public void validateMetersOfMine(int i)throws VeryLargeMineException {
 		if (i > 800);
 			throw new VeryLargeMineException();

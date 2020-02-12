@@ -29,7 +29,6 @@ public class MatrixReport {
 	 * 
 	 * @param map    Mapa con los datos del eje "y" y el eje "x".
 	 * @param option Tipo de encabezado del eje x.
-	 * @param scale  Escala a la cual se va a dibujar el grafico (1-10000)
 	 * @return Retorna un vector de objetos con la grafica y las convenciones de
 	 *         esta.
 	 */

@@ -23,8 +23,6 @@ public class Department {
 	 * 
 	 * @param name             Nombre del departamento
 	 * @param budgetDepartment Presupuesto del departamento.
-	 * @throws MineNotFoundException De no ser encontrada la mina por el id
-	 *                               indicado, lanzara la excepcion.
 	 */
 	public Department(DepartmentName name, int budgetDepartment) {
 		this.name = name;
@@ -127,6 +125,7 @@ public class Department {
 	 * @param id Numero de identificacion de la mina que se desea eliminar.
 	 * @throws MineNotFoundException De no ser encontrada la mina por el id
 	 *                               indicado, lanzara la excepcion.
+	 * @return Retorna la mina removida.
 	 */
 	public Mine removeMine(int id) throws MineNotFoundException {
 		int positionFound = searchPositionMine(id);
