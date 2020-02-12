@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import exceptions.OptionInvalidException;
+import exceptions.VeryLargeMineException;
 import models.Department;
 import models.DepartmentName;
 import models.MineType;
@@ -42,7 +43,7 @@ public class IOManager {
 	private static final String DIGIT_KILOGRAM_PRICE = "Digite el precio por kilogramo de este producto:";
 	private static final String CHOOSE_TYPE_MINERAL = "Elija el tipo de mineral: ";
 	private static final String DIGIT_SQUARE_METERS = "Digite el numero de metros cuadrados de la mina: ";
-	private static final String DIGIT_MINE_NAME = "Digite el nombre de la mina: ";
+	private static final String DIGIT_MINE_NAME = "Ingrese el nombre de la mina: ";
 	private Scanner in;
 	public static final String WELCOME = "---------------------------------\n" + "|Bienvenido a tu gestor de minas|\n"
 			+ "---------------------------------";
@@ -141,12 +142,27 @@ public class IOManager {
 		String text = in.nextLine();
 		Pattern pat = Pattern.compile("\\d*");
 		Matcher mat = pat.matcher(text);
-		if (mat.matches())
+		
+		if (mat.matches()) {
+			try {
+			validateMetersOfMine(Integer.parseInt(text));
 			return Integer.parseInt(text);
-		else {
+			}catch(VeryLargeMineException e){
+				System.out.println(e.getMessage());
+				return readMeterMine();
+			}
+		}else {
 			System.err.println(INVALID_OPTION);
 			return readMeterMine();
 		}
+	}
+	public void validateMetersOfMine(int i)throws VeryLargeMineException {
+		if (i > 800 || i == 0 || i < 0)
+			throw new VeryLargeMineException();
+		else {
+				
+			}
+		
 	}
 	/**
 	 *Recibe el tipo  de recurso que explota una mina. 

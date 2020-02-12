@@ -2,6 +2,7 @@ package models.utils;
 
 import java.util.Random;
 
+import exceptions.VeryLargeMineException;
 import models.DepartmentName;
 import models.MineType;
 import models.OreType;
@@ -75,6 +76,12 @@ public class RandomizeGenerator {
 	 */
 	public static OreType generateRandomOreType() {
 		return oreTypes[r.nextInt(oreTypes.length - 1)];
+	}
+	public void validateMetersOfMine(int i)throws VeryLargeMineException {
+		if (i > 800);
+			throw new VeryLargeMineException();
+		
+		
 	}
 
 }
