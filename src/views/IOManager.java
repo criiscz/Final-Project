@@ -156,6 +156,13 @@ public class IOManager {
 			return readMeterMine();
 		}
 	}
+	/**
+	 * Valida que la cantidad de m2 de una mina no sea mayor a 800 ni  menor o igual a 0.
+	 * @param i 
+	 * Cantidad de m2 de una mina para ser validados.
+	 * @throws VeryLargeMineException
+	 * Excepcion lanzada cuando una mina no cumple con el tamaño correcto.
+	 */
 	public void validateMetersOfMine(int i)throws VeryLargeMineException {
 		if (i > 800 || i == 0 || i < 0)
 			throw new VeryLargeMineException();
