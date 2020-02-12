@@ -1,0 +1,1 @@
+- Abrir el archivo "Exec-MineDev.bat" para ejecutar el programa.

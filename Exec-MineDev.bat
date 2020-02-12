@@ -1,1 +1,1 @@
-java -jar MineDev.jar
+java -jar Archivos/MineDev.jar
