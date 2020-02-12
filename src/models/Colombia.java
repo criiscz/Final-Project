@@ -26,10 +26,6 @@ public class Colombia {
 		listDepartment = new Department[10];
 	}
 
-	public void initAll() {
-
-	}
-
 	/**
 	 * Metodo encargado de la generación automatica de los departamentos.
 	 * 
